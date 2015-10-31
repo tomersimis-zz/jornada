@@ -31,8 +31,7 @@ def signup_student(request):
 			student.user = user
 			student.save()
 			return redirect('index_page')
-	print(student_form.errors)
-	print(user_form.errors)
+	
 	return render(request, 'signup_student.html', {
 		'form': user_form,
 		'grades': GRADE_CHOICES,
