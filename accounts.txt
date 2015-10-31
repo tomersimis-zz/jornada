@@ -1,0 +1,10 @@
+BEGIN;
+CREATE TABLE "classes_class" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "name" varchar(50) NOT NULL, "grade" varchar(50) NOT NULL, "discipline" varchar(50) NOT NULL, "time" time NOT NULL, "location" varchar(100) NOT NULL);
+CREATE TABLE "classes_class_students" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "class_id" integer NOT NULL REFERENCES "classes_class" ("id"), "student_id" integer NOT NULL REFERENCES "accounts_student" ("id"), UNIQUE ("class_id", "student_id"));
+CREATE TABLE "classes_class_teachers" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "class_id" integer NOT NULL REFERENCES "classes_class" ("id"), "teacher_id" integer NOT NULL REFERENCES "accounts_teacher" ("id"), UNIQUE ("class_id", "teacher_id"));
+CREATE INDEX "classes_class_students_301e3c17" ON "classes_class_students" ("class_id");
+CREATE INDEX "classes_class_students_30a811f6" ON "classes_class_students" ("student_id");
+CREATE INDEX "classes_class_teachers_301e3c17" ON "classes_class_teachers" ("class_id");
+CREATE INDEX "classes_class_teachers_d9614d40" ON "classes_class_teachers" ("teacher_id");
+
+COMMIT;
