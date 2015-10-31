@@ -19,4 +19,5 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'jornada.views.index', name = 'index_page'),
+    url(r'^signup_teacher$', 'accounts.views.signup_teacher', name = 'signup_teacher_page'),
 ]
