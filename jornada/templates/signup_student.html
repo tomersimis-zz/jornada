@@ -65,7 +65,7 @@
 	<div class="content clearfix">
 		
 		<form action="#" method="post">
-		
+			{% csrf_token %}
 			<h1>Cadastro de aluno no Jornada</h1>			
 			
 			<div class="login-fields">
@@ -74,12 +74,12 @@
 				
 				<div class="field">
 					<label for="firstname">Nome</label>
-					<input type="text" id="firstname" name="firstname" value="" placeholder="Nome" class="login" />
+					<input type="text" id="firstname" name="first_name" value="" placeholder="Nome" class="login" required/>
 				</div> <!-- /field -->
 				
 				<div class="field">
 					<label for="lastname">Sobrenome:</label>	
-					<input type="text" id="lastname" name="lastname" value="" placeholder="Sobrenome" class="login" />
+					<input type="text" id="lastname" name="last_name" value="" placeholder="Sobrenome" class="login" required/>
 				</div> <!-- /field -->
 				
 				
@@ -88,6 +88,11 @@
 					<input type="text" id="email" name="email" value="" placeholder="Email" class="login"/>
 				</div> <!-- /field -->
 				
+				<div class="field">
+					<label for="username">Nome de usuário:</label>
+					<input type="text" id="username" name="username" value="" placeholder="Nome de usuário" class="login"/>
+				</div> <!-- /field -->
+
 				<div class="field">
 					<label for="password">Senha:</label>
 					<input type="password" id="password" name="password" value="" placeholder="Senha" class="login"/>
@@ -102,15 +107,15 @@
 
 				<div class="field">
 					<p>Série:</p>
-					<select class="login" style=" font-size: 13px; color: #000; padding: 9px 15px 9px 4px; height:auto;  background-color: #fdfdfd; width: 100%; display: block; margin: 0; box-shadow: inset 2px 2px 4px #f1f1f1;">
-						<option>1º ano</option>
-						<option>2º ano</option>
-					</select>
+					<select class="login" style=" font-size: 13px; color: #000; padding: 9px 15px 9px 4px; height:auto;  background-color: #fdfdfd; width: 100%; display: block; margin: 0; box-shadow: inset 2px 2px 4px #f1f1f1;" name="grade">
+						{% for value, grade in grades %}
+						<option value="{{ value }}">{{ grade }}</option>
+						{% endfor %}					</select>
 				</div> <!-- /field -->
 
 				<div class="field">
-					<label for="email">Escola:</label>
-					<input type="text" id="email" name="email" value="" placeholder="Escola em que estuda" class="login"/>
+					<label for="school">Escola:</label>
+					<input type="text" id="school" name="school" value="" placeholder="Escola em que estuda" class="login"/>
 				</div> <!-- /field -->
 
 

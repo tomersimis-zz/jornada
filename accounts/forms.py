@@ -8,6 +8,12 @@ class TeacherForm (ModelForm):
 		model = Teacher
 		fields = ['school', 'disciplines']
 
+class StudentForm(ModelForm):
+
+	class Meta:
+		model = Student
+		fields = ['school', 'grade']
+
 class UserForm(ModelForm):
 
 	class Meta:
