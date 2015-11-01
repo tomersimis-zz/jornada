@@ -21,4 +21,6 @@ urlpatterns = [
     url(r'^$', 'jornada.views.index', name = 'index_page'),
     url(r'^signup_teacher$', 'accounts.views.signup_teacher', name = 'signup_teacher_page'),
     url(r'^signup_student$', 'accounts.views.signup_student', name = 'signup_student_page'),
+    url(r'^create_class$', 'classes.views.create_class', name = 'create_class_page'),
+    # ADICIONAR A MINHA URL AQUI
 ]
