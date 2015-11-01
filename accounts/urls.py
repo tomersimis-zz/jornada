@@ -16,12 +16,9 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from accounts import urls as accounts_urls
-
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'jornada.views.index', name = 'index'),
-    url(r'^usuario/', include(accounts_urls, namespace="Accounts")),
-    url(r'^create_class$', 'classes.views.create_class', name = 'create_class_page'),
-    # ADICIONAR A MINHA URL AQUI
+    url(r'^cadastro-professor$', 'accounts.views.signup_teacher', name = 'signup_teacher'),
+    url(r'^cadastro-aluno$', 'accounts.views.signup_student', name = 'signup_student'),
+    url(r'^login/', 'accounts.views.login', name = "login"),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'})
 ]

@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load widget_tweaks %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +20,23 @@
 <link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css">
 <link href="{% static "css/pages/signin.css" %}" rel="stylesheet" type="text/css">
 
+<style type="text/css">
+	
+	select{
+		font-family: 'Open Sans';
+	    font-size: 13px;
+	    color: #8e8d8d;
+	    padding: 9px 15px 9px 0px;
+	    background-color: #fdfdfd;
+	    width: 100%;
+	    display: block;
+	    margin: 0;
+	    height: auto;
+	    box-shadow: inset 2px 2px 4px #f1f1f1;
+	}
+
+</style>
+
 </head>
 
 <body>
@@ -34,7 +53,7 @@
 				<span class="icon-bar"></span>
 			</a>
 
-			<a class="brand" href="index.html">
+			<a class="brand" href="{% url 'index' %}">
 				Jornada
 			</a>
 
@@ -58,6 +77,22 @@
 
 </div> <!-- /navbar -->
 
+{% if form.errors %}
+	<!-- Error messaging -->
+	<div id="errors">
+		<div class="inner">
+			<p>There were some errors in the information you entered. Please correct the following:</p>
+			{{ form.non_field_errors }}
+			<ul>
+				{% for field in form %}
+					<li>{{ field.label }}: {{ field.errors|striptags }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<!-- /Error messaging -->
+{% endif %}
+
 
 
 <div class="account-container register">
@@ -74,48 +109,45 @@
 
 				<div class="field">
 					<label for="firstname">Nome</label>
-					<input type="text" id="firstname" name="first_name" value="" placeholder="Nome" class="login" required/>
+					{% render_field form.first_name placeholder=form.first_name.label %}
+					<div class="form-error">{{ form.first_name.errors }}</div>
 				</div> <!-- /field -->
 
 				<div class="field">
 					<label for="lastname">Sobrenome:</label>
-					<input type="text" id="lastname" name="last_name" value="" placeholder="Sobrenome" class="login" required/>
+					{% render_field form.first_name placeholder=form.last_name.label %}
+					<div class="form-error">{{ form.last_name.errors }}</div>
 				</div> <!-- /field -->
 
 
 				<div class="field">
 					<label for="email">Email:</label>
-					<input type="text" id="email" name="email" value="" placeholder="Email" class="login"/>
+					{% render_field form.email placeholder=form.email.label %}
+					<div class="form-error">{{ form.email.errors }}</div>
 				</div> <!-- /field -->
 
 				<div class="field">
 					<label for="username">Nome de usuário:</label>
-					<input type="text" id="username" name="username" value="" placeholder="Nome de usuário" class="login"/>
+					{% render_field form.username placeholder=form.username.label %}
+					<div class="form-error">{{ form.username.errors }}</div>
 				</div> <!-- /field -->
 
 				<div class="field">
 					<label for="password">Senha:</label>
-					<input type="password" id="password" name="password" value="" placeholder="Senha" class="login"/>
-				</div> <!-- /field -->
-
-				<div class="field">
-					<label for="confirm_password">Confirmação de Senha</label>
-					<input type="password" id="confirm_password" name="confirm_password" value="" placeholder="Confirmação de Senha" class="login"/>
+					{% render_field form.password placeholder=form.password.label %}
+					<div class="form-error">{{ form.password.errors }}</div>
 				</div> <!-- /field -->
 
 				<p><strong>Dados adicionais</strong></p>
 
 				<div class="field">
 					<p>Série:</p>
-					<select class="login" style=" font-size: 13px; color: #000; padding: 9px 15px 9px 4px; height:auto;  background-color: #fdfdfd; width: 100%; display: block; margin: 0; box-shadow: inset 2px 2px 4px #f1f1f1;" name="grade">
-						{% for value, grade in grades %}
-						<option value="{{ value }}">{{ grade }}</option>
-						{% endfor %}					</select>
+					{% render_field student_form.grade placeholder=student_form.grade.label %}
 				</div> <!-- /field -->
 
 				<div class="field">
 					<label for="school">Escola:</label>
-					<input type="text" id="school" name="school" value="" placeholder="Escola em que estuda" class="login"/>
+					{% render_field student_form.school placeholder='Escola em que estuda' %}
 				</div> <!-- /field -->
 
 

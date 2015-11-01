@@ -1,5 +1,0 @@
-from django.contrib import admin
-from rewards.models import Reward
-from rewards.models import Badge
-
-# Register your models here.
