@@ -17,11 +17,12 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 from accounts import urls as accounts_urls
+from classes import urls as classes_urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'jornada.views.index', name = 'index'),
     url(r'^usuario/', include(accounts_urls, namespace="Accounts")),
-    url(r'^create_class$', 'classes.views.create_class', name = 'create_class_page'),
+    url(r'^turmas/', include(classes_urls, namespace="Classes")),
     # ADICIONAR A MINHA URL AQUI
 ]

@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load widget_tweaks %}
+
 <!DOCTYPE html>
 <html lang="en">
   
@@ -69,14 +71,24 @@
 	
 </div> <!-- /navbar -->
 
-
+<ul>
+    {% for message in messages %}
+    <li class="{{ message.tags }}">
+        {% if 'safe' in message.tags %}
+            {{ message|safe }}
+        {% else %}
+            {{ message }}
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
 
 <div class="account-container">
 	
 	<div class="content clearfix">
 		
-		<form action="#" method="post">
-		{% csrf_token %}
+		<form action="#" method="POST">
+			{% csrf_token %}
 		
 			<h1>Login</h1>		
 			

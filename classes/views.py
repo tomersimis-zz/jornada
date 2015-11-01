@@ -1,14 +1,26 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from classes.forms import ClassForm
 from classes.models import GRADE_CHOICES
+from django.contrib.auth.decorators import login_required
+from jornada.util import is_teacher
 
-# Create your views here.
+from accounts.models import Teacher
+
+
+@login_required(login_url='/usuario/login/')
 def create_class(request):
-    class_form = ClassForm(request.POST or None)
 
-    if request.method == 'POST':
-        if class_form.is_valid():
-            classe = class_form.save()
-            return redirect('index_page')
+	if not is_teacher(request.user):
+		return redirect('index')
 
-    return render(request, 'create_class.html', {'form': class_form, 'grades': GRADE_CHOICES})
+	class_form = ClassForm(request.POST or None)
+
+	if class_form.is_valid():
+		classe = class_form.save()
+		classe.teachers.add(Teacher.objects.get(user=request.user))
+		classe.save()
+		return redirect('index')
+
+	return render(request, 'classes/form.html', {
+		'form': class_form
+	})
