@@ -1288,6 +1288,49 @@ color: #333;
 
 
 /** CUSTOM **/
+.navbar, .navbar-wrapper{
+	background-color: #00ba8b;
+	margin-bottom: 0px;
+}
+
+.navbar-brand{
+	color: #fff !important;
+}
+
+.navbar-form input {
+	background-color: #444;
+	width: 150px;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.navbar-form input::-webkit-input-placeholder {
+    color: #fff;
+}
+
+.navbar-form input:-moz-placeholder {
+    color: #fff;
+}
+
+.navbar-form input, .navbar-form button{ 
+	background:#008866; border:0; color:#fff; line-height:normal;}
+
+.navbar-form button{
+	padding: 8px 15px 7px 15px;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover{
+	background: #009973;
+}
+
+
+.navbar-toggle{
+	color: #fff;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+	background: #fff;
+}
 
 .classic-form input{
 	padding: 20px 5px;

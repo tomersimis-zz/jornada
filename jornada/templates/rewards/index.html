@@ -1,0 +1,137 @@
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Criação/Edição de Turma - Jornada</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
+        rel="stylesheet">
+<link href="{% static "css/font-awesome.css" %}" rel="stylesheet">
+<link href="{% static "css/style.css" %}" rel="stylesheet">
+<link href="{% static "css/pages/dashboard.css" %}" rel="stylesheet">
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+{% include 'nav.html' %}
+
+
+<!-- /subnavbar -->
+<div class="main">
+  <div class="main-inner">
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-6">
+        <h1>Pontuações</h1>
+
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create-reward">Criar pontuação</a>
+
+        </div>
+        <div class="col-md-6">
+         <h1>Badges</h1>
+
+         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create-badge">Criar badge</a>
+          
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- /container --> 
+  </div>
+  <!-- /main-inner --> 
+</div>
+<!-- /main -->
+
+<!-- Modal -->
+<div class="modal fade" id="create-reward" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <form method="POST" action="{% url 'Rewards:create_reward' %}">
+  {% csrf_token %}
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <div style="padding: 10px 30px 20px 20px">     
+            <div class="form-group">
+              <label for="name">Nome</label>
+              {% render_field reward_form.name placeholder="Ex: Chegar no hoário certo" class="form-control" %}
+            </div>
+            <div class="form-group">
+              <label for="name">Descrição</label>
+              {% render_field reward_form.description class="form-control" %}
+            </div>
+            <div class="form-group">
+              <label for="name">Valor</label>
+              {% render_field reward_form.value class="form-control" type="number" %}
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="create-badge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <form method="POST" action="{% url 'Rewards:create_badge' %}">
+  {% csrf_token %}
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <div style="padding: 10px 30px 20px 20px">     
+            <div class="form-group">
+              <label for="name">Nome</label>
+              {% render_field badge_form.name placeholder="Ex: Aluno pontual" class="form-control" %}
+            </div>
+            <div class="form-group">
+              <label for="name">Descrição</label>
+              {% render_field badge_form.description class="form-control" %}
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% include "footer.html" %}
+
+<!-- Le javascript
+================================================== --> 
+<!-- Placed at the end of the document so the pages load faster --> 
+<script src="{% static "js/jquery-1.7.2.min.js" %}"></script> 
+<script src="{% static "js/bootstrap.js" %}"></script>
+
+ 
+<script src="{% static "js/base.js" %}"></script> 
+
+</body>
+</html>

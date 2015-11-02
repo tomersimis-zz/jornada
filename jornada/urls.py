@@ -18,11 +18,13 @@ from django.contrib import admin
 
 from accounts import urls as accounts_urls
 from classes import urls as classes_urls
+from rewards import urls as rewards_urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'jornada.views.index', name = 'index'),
     url(r'^usuario/', include(accounts_urls, namespace="Accounts")),
     url(r'^turmas/', include(classes_urls, namespace="Classes")),
+    url(r'^pontos/', include(rewards_urls, namespace="Rewards")),
     # ADICIONAR A MINHA URL AQUI
 ]

@@ -9,7 +9,14 @@ class Reward(models.Model):
     value = models.IntegerField(blank=True, null=True)
     created_by = models.ForeignKey(User)
 
+    def __str__(self):
+    	return self.name + " - Created by " + self.created_by.first_name
+
+
 class Badge(models.Model):
     name = models.CharField(max_length=50, blank=True)
     description = models.CharField(max_length=200, blank=True)
     created_by = models.ForeignKey(User)
+
+    def __str__(self):
+    	return self.name + " - Created by " + self.created_by.first_name
