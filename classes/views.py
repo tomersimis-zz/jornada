@@ -10,7 +10,6 @@ from accounts.models import Teacher,Student
 def index(request):
 
 	if is_teacher(request.user):
-
 		classes = Class.objects.filter(teachers__in=[Teacher.objects.get(user=request.user)])
 	else:
 		classes = Class.objects.filter(students__in=[Student.objects.get(user=request.user)])
@@ -74,3 +73,10 @@ def edit_class(request, id):
 		'form': class_form,
 		'edit': True
 	})
+
+@login_required(login_url='/usuario/login/')
+def view(request, id):
+	context={
+		'class': Class.objects.get(pk=id)
+	}
+	return render(request, 'classes/view_class.html', context)
