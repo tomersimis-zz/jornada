@@ -1,4 +1,7 @@
 {% load staticfiles %}
+{% load widget_tweaks %}
+
+
 <!DOCTYPE html>
 <html lang="en">
   
@@ -41,7 +44,7 @@
 			<div class="nav-collapse">
 				<ul class="nav pull-right">
 					<li class="">						
-						<a href="login.html" class="">
+						<a href="{% url 'Accounts:login'%}" class="">
 							<i class="icon-chevron-left"></i> &nbsp;
 							Já possui uma conta? Faça o login
 						</a>
@@ -72,45 +75,53 @@
 				
 				<div class="field">
 					<label for="firstname">Nome</label>
-					<input type="text" id="firstname" name="first_name" value="" placeholder="Nome" class="login" required/>
-				</div> <!-- /field -->
+
+					{% render_field form.first_name placeholder=form.first_name.label %}
+					<div class="form-error">{{ form.first_name.errors }}</div>
+				</div> <!-- /field --> 
 				
 				<div class="field">
 					<label for="lastname">Sobrenome:</label>	
-					<input type="text" id="lastname" name="last_name" value="" placeholder="Sobrenome" class="login" required/>
+					
+					{% render_field form.last_name placeholder=form.last_name.label %}
+
+					<div class="form-error">{{ form.last_name.errors }}</div>
 				</div> <!-- /field -->
 				
 				
 				<div class="field">
 					<label for="email">Email:</label>
-					<input type="text" id="email" name="email" value="" placeholder="Email" class="login" required/>
+
+					{% render_field form.email placeholder=form.email.label %}
+					<div class="form-error">{{ form.email.errors }}</div>
 				</div> <!-- /field -->
 				
 				<div class="field">
 					<label for="username">Nome de usuário:</label>
-					<input type="text" id="username" name="username" value="" placeholder="Nome de usuário" class="login" required/>
+
+					{% render_field form.username placeholder=form.username.label %}
+					<div class="form-error">{{ form.username.errors }}</div>
 				</div> <!-- /field -->
 
 				<div class="field">
 					<label for="password">Senha:</label>
-					<input type="password" id="password" name="password" value="" placeholder="Senha" class="login" required/>
+
+					{% render_field form.password placeholder=form.password.label type="password" %}
+					<div class="form-error">{{ form.password.errors }}</div>
 				</div> <!-- /field -->
-				
-				<div class="field">
-					<label for="confirm_password">Confirmação de Senha</label>
-					<input type="password" id="confirm_password" name="confirm_password" value="" placeholder="Confirmação de Senha" class="login" required/>
-				</div> <!-- /field -->
+
+
 
 				<p><strong>Dados adicionais</strong></p>
 
 				<div class="field">
-					<label for="email">Escola:</label>
-					<input type="text" id="school" name="school" value="" placeholder="Escola em que leciona" class="login" required/>
+					<label for="email">Escola:</label>					
+					{% render_field teacher_form.school placeholder='Escola em que leciona' %}
 				</div> <!-- /field -->
 
 				<div class="field">
 					<label for="email">Disciplinas:</label>
-					<input type="text" id="discipline" name="discipline" value="" placeholder="Disciplinas que leciona" class="login" required/>
+					{% render_field teacher_form.disciplines placeholder=teacher_form.disciplines.label %}
 				</div> <!-- /field -->
 
 
@@ -136,7 +147,7 @@
 
 <!-- Text Under Box -->
 <div class="login-extra">
-	Já possui uma conta?<a href="login.html"> Clique aqui para fazer o login</a>
+	Já possui uma conta?<a href="{% url 'Accounts:login'%}"> Clique aqui para fazer o login</a>
 </div> <!-- /login-extra -->
 
 

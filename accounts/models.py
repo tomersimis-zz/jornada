@@ -23,7 +23,7 @@ class Teacher(models.Model):
     user = models.OneToOneField(User)
     image = models.ImageField(upload_to='images/users')
     school = models.CharField(max_length=100, blank=True)
-    disciplines = models.CharField(max_length=200, blank=True)
+    disciplines = models.CharField('Disciplinas',max_length=200, blank=True)
 
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name

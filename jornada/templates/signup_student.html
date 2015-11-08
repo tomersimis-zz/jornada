@@ -60,7 +60,7 @@
 			<div class="nav-collapse">
 				<ul class="nav pull-right">
 					<li class="">
-						<a href="login.html" class="">
+						<a href="{% url 'Accounts:login' %}" class="">
 							<i class="icon-chevron-left"></i> &nbsp;
 							Já possui uma conta? Faça o login
 						</a>
@@ -76,23 +76,6 @@
 	</div> <!-- /navbar-inner -->
 
 </div> <!-- /navbar -->
-
-{% if form.errors %}
-	<!-- Error messaging -->
-	<div id="errors">
-		<div class="inner">
-			<p>There were some errors in the information you entered. Please correct the following:</p>
-			{{ form.non_field_errors }}
-			<ul>
-				{% for field in form %}
-					<li>{{ field.label }}: {{ field.errors|striptags }}</li>
-				{% endfor %}
-			</ul>
-		</div>
-	</div>
-	<!-- /Error messaging -->
-{% endif %}
-
 
 
 <div class="account-container register">
@@ -115,7 +98,7 @@
 
 				<div class="field">
 					<label for="lastname">Sobrenome:</label>
-					{% render_field form.first_name placeholder=form.last_name.label %}
+					{% render_field form.last_name placeholder=form.last_name.label %}
 					<div class="form-error">{{ form.last_name.errors }}</div>
 				</div> <!-- /field -->
 
@@ -134,7 +117,7 @@
 
 				<div class="field">
 					<label for="password">Senha:</label>
-					{% render_field form.password placeholder=form.password.label %}
+					{% render_field form.password placeholder=form.password.label type="password" %}
 					<div class="form-error">{{ form.password.errors }}</div>
 				</div> <!-- /field -->
 
@@ -173,7 +156,7 @@
 
 <!-- Text Under Box -->
 <div class="login-extra">
-	Já possui uma conta?<a href="login.html"> Clique aqui para fazer o login</a>
+	Já possui uma conta?<a href="{% url 'Accounts:login'%}"> Clique aqui para fazer o login</a>
 </div> <!-- /login-extra -->
 
 
