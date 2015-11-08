@@ -67,6 +67,7 @@ def edit_class(request, id):
 
 	if class_form.is_valid():
 		my_class.save()
+		return redirect('Classes:index')
 		
 
 	return render(request, 'classes/form.html', {
