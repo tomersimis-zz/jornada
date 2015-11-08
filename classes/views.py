@@ -4,7 +4,7 @@ from classes.models import Class
 from django.contrib.auth.decorators import login_required
 from jornada.util import is_teacher
 
-from accounts.models import Teacher
+from accounts.models import Teacher,Student
 
 @login_required(login_url='/usuario/login/')
 def index(request):
@@ -13,7 +13,7 @@ def index(request):
 
 		classes = Class.objects.filter(teachers__in=[Teacher.objects.get(user=request.user)])
 	else:
-		classes = []
+		classes = Class.objects.filter(students__in=[Student.objects.get(user=request.user)])
 
 	return render(request, 'classes/index.html', {
 		'classes': classes
