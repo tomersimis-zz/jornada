@@ -51,10 +51,10 @@
                 <tbody>
                   {% for class in classes %}
                   <tr>
-                    <td> {{ class.name }}</td>
-                    <td> {{ class.discipline }}</td>
-                    <td> {{ class.grade }}</td>
-                    <td> {{ class.students.count }}</td>
+                    <td><a data-href=""> {{ class.name }} </a></td>
+                    <td><a data-href=""> {{ class.discipline }} </a></td>
+                    <td><a data-href=""> {{ class.grade }} </a></td>
+                    <td><a data-href=""> {{ class.students.count }} </a></td>
                     <td><a data-href="{% url 'Classes:remove' id=class.pk %}" class="btn btn-danger btn-small remove-confirm"><i class="btn-icon-only icon-remove"> </i></a></td>
                   </tr>
 
