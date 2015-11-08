@@ -71,18 +71,6 @@
 	
 </div> <!-- /navbar -->
 
-<ul>
-    {% for message in messages %}
-    <li class="{{ message.tags }}">
-        {% if 'safe' in message.tags %}
-            {{ message|safe }}
-        {% else %}
-            {{ message }}
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
-
 <div class="account-container">
 	
 	<div class="content clearfix">
@@ -107,6 +95,18 @@
 				</div> <!-- /password -->
 				
 			</div> <!-- /login-fields -->
+
+			
+		    {% for message in messages %}
+		    <div class="{{ message.tags }}" style="color:#BE3F00">
+		        {% if 'safe' in message.tags %}
+		            {{ message|safe }}
+		        {% else %}
+		            {{ message }}
+		        {% endif %}
+		    </div>
+		    {% endfor %}
+			
 			
 			<div class="login-actions">
 									
