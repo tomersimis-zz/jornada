@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django.forms import PasswordInput
 from django.contrib.auth.models import User
 from accounts.models import Teacher, Student
 
@@ -20,6 +21,9 @@ class UserForm(ModelForm):
 		model = User
 		fields = ['username','first_name', 'last_name',\
 		'email', 'password']
+		widgets = {
+            'password': PasswordInput(),
+        }
 
 	def save(self, commit=True):
 		user = super(UserForm, self).save(commit=False)

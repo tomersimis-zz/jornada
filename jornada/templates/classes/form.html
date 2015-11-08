@@ -25,6 +25,22 @@
 
 {% include 'nav.html' %}
 
+{% if form.errors %}
+  <!-- Error messaging -->
+  <div id="errors">
+    <div class="inner">
+      <p>There were some errors in the information you entered. Please correct the following:</p>
+      {{ form.non_field_errors }}
+      <ul>
+        {% for field in form %}
+          {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <!-- /Error messaging -->
+{% endif %}
+
 <!-- /subnavbar -->
 <div class="main">
   <div class="main-inner">
@@ -36,7 +52,7 @@
 
           <form action="#" method="post" class="classic-form">
             {% csrf_token %}
-            <h1>Cadastro de Turma no Jornada</h1>
+            <h1>{% if edit %} Edição {% else %} Criação {% endif %} de Turma no Jornada</h1>
 
             <div class="create-class-fields">
 
@@ -88,7 +104,7 @@
                 <label class="choice" for="Field">Agree with the Terms & Conditions.</label>
               </span>-->
 
-              <button class="button btn btn-primary btn-large">Criar Turma</button>
+              <button class="button btn btn-primary btn-large">{% if edit %} Editar {% else %} Criar {% endif %} Turma</button>
 
             </div> <!-- .actions -->
 
