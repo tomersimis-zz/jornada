@@ -48,5 +48,28 @@ def create_class(request):
 		return redirect('index')
 
 	return render(request, 'classes/form.html', {
-		'form': class_form
+		'form': class_form,
+		'edit': False
+	})
+
+@login_required(login_url='/usuario/login/')
+def edit_class(request, id):
+
+	if not is_teacher(request.user):
+		return redirect('index')
+
+	if not Class.objects.filter(pk=id, teachers__in=[Teacher.objects.get(user=request.user)]):
+		return redirect('Classes:index')
+
+
+	my_class = Class.objects.get(pk=id)
+	class_form = ClassForm(request.POST or None, instance = my_class)
+
+	if class_form.is_valid():
+		my_class.save()
+		
+
+	return render(request, 'classes/form.html', {
+		'form': class_form,
+		'edit': True
 	})
