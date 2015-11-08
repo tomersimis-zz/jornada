@@ -19,7 +19,7 @@ def signup_teacher(request):
 
 	return render(request, 'signup_teacher.html', {
 		'form': user_form,
-		'teacher_form': teacher_form,
+		'teacher_form': teacher_form
 	})
 
 def signup_student(request):

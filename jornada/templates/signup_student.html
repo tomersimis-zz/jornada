@@ -98,7 +98,7 @@
 
 				<div class="field">
 					<label for="lastname">Sobrenome:</label>
-					{% render_field form.first_name placeholder=form.last_name.label %}
+					{% render_field form.last_name placeholder=form.last_name.label %}
 					<div class="form-error">{{ form.last_name.errors }}</div>
 				</div> <!-- /field -->
 
@@ -117,7 +117,7 @@
 
 				<div class="field">
 					<label for="password">Senha:</label>
-					{% render_field form.password placeholder=form.password.label %}
+					{% render_field form.password placeholder=form.password.label type="password" %}
 					<div class="form-error">{{ form.password.errors }}</div>
 				</div> <!-- /field -->
 

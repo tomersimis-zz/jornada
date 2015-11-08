@@ -1,6 +1,7 @@
 {% load staticfiles %}
 {% load widget_tweaks %}
 
+
 <!DOCTYPE html>
 <html lang="en">
   
@@ -74,41 +75,48 @@
 				
 				<div class="field">
 					<label for="firstname">Nome</label>
+
 					{% render_field form.first_name placeholder=form.first_name.label %}
 					<div class="form-error">{{ form.first_name.errors }}</div>
-				</div> <!-- /field -->
+				</div> <!-- /field --> 
 				
 				<div class="field">
 					<label for="lastname">Sobrenome:</label>	
-					{% render_field form.first_name placeholder=form.last_name.label %}
+					
+					{% render_field form.last_name placeholder=form.last_name.label %}
+
 					<div class="form-error">{{ form.last_name.errors }}</div>
 				</div> <!-- /field -->
 				
 				
 				<div class="field">
 					<label for="email">Email:</label>
+
 					{% render_field form.email placeholder=form.email.label %}
 					<div class="form-error">{{ form.email.errors }}</div>
 				</div> <!-- /field -->
 				
 				<div class="field">
 					<label for="username">Nome de usuário:</label>
+
 					{% render_field form.username placeholder=form.username.label %}
 					<div class="form-error">{{ form.username.errors }}</div>
 				</div> <!-- /field -->
 
 				<div class="field">
 					<label for="password">Senha:</label>
-					{% render_field form.password placeholder=form.password.label %}
+
+					{% render_field form.password placeholder=form.password.label type="password" %}
 					<div class="form-error">{{ form.password.errors }}</div>
 				</div> <!-- /field -->
-				
+
+
 
 				<p><strong>Dados adicionais</strong></p>
 
 				<div class="field">
-					<label for="email">Escola:</label>
-					{% render_field teacher_form.school placeholder='Escola que leciona' %}
+					<label for="email">Escola:</label>					
+					{% render_field teacher_form.school placeholder='Escola em que leciona' %}
 				</div> <!-- /field -->
 
 				<div class="field">
