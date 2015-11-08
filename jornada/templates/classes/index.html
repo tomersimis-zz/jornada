@@ -55,7 +55,8 @@
                     <td> {{ class.discipline }}</td>
                     <td> {{ class.grade }}</td>
                     <td> {{ class.students.count }}</td>
-                    <td><a data-href="{% url 'Classes:remove' id=class.pk %}" class="btn btn-danger btn-small remove-confirm"><i class="btn-icon-only icon-remove"> </i></a></td>
+                    <td><a data-href="{% url 'Classes:remove' id=class.pk %}" class="btn btn-danger btn-small remove-confirm"><i class="btn-icon-only icon-remove"> </i></a>
+                        <a href="{% url 'Classes:edit' id=class.pk %}" class="btn btn-info btn-small"><i class="btn-icon-only icon-edit"> </i></a></td>
                   </tr>
 
                   {% empty %}
