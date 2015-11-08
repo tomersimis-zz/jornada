@@ -373,7 +373,7 @@ textarea {
 	.widget-header h3 {
 		
 		position: relative;
-		top: 2px;
+		top: 0px;
 		left: 10px;
 		
 		display: inline-block;
@@ -383,6 +383,7 @@ textarea {
 		font-weight: 800;
 		color: #525252;
 		line-height: 18px;
+		margin-top: 0px;
 		
 		text-shadow: 1px 1px 2px rgba(255,255,255,.5);
 	}
@@ -1335,4 +1336,39 @@ color: #333;
 .classic-form input{
 	padding: 20px 5px;
 	width: 100%;
+}
+
+.white-bg{
+	background: #fff;
+}
+
+.panel{
+	padding: 0px;
+}
+
+.panel-header{
+	clear: both;
+	padding: 15px;
+	border-bottom: solid 1px #FAFAFA;
+}
+
+.panel-header h2{
+	margin: 0px;
+	font-size: 24px;
+}
+
+.panel-item{
+	border-bottom: solid 1px #FAFAFA;
+}
+
+.panel-item a{
+	color: #333;
+	display: block;
+	margin: 10px;
+	padding: 10px;
+}
+
+.panel-item a:hover{
+	background: #FAFAFA;
+	text-decoration: none;
 }

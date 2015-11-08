@@ -25,6 +25,9 @@ class Teacher(models.Model):
     school = models.CharField(max_length=100, blank=True)
     disciplines = models.CharField(max_length=200, blank=True)
 
+    def __str__(self):
+        return self.user.first_name + " " + self.user.last_name
+
 class Student(models.Model):
     user = models.OneToOneField(User)
     image = models.ImageField(upload_to='images/users')
@@ -32,6 +35,9 @@ class Student(models.Model):
     grade = models.CharField(max_length=50, blank=True, choices=GRADE_CHOICES)
     badges = models.ManyToManyField(Badge)
     rewards = models.ManyToManyField(Reward)
+
+    def __str__(self):
+        return self.user.first_name + " " + self.user.last_name
 
 # class Admin(models.Model):
 #   user = models.OneToOneField(User)

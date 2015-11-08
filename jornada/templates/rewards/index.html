@@ -8,7 +8,7 @@
 <title>Criação/Edição de Turma - Jornada</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link href="{% static "css/bootstrap_new.css" %}" rel="stylesheet">
 
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
         rel="stylesheet">
@@ -33,17 +33,42 @@
 
       <div class="row">
         <div class="col-md-6">
-        <h1>Pontuações</h1>
+          <div class="panel">
+            <div class="panel-header">
+              <h2 class="pull-left">Pontuações</h2>
+              <a type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#create-reward">Criar pontuação</a>
+              <br style="clear: both" /> 
+            </div>
 
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create-reward">Criar pontuação</a>
-
+          {% for reward in rewards %}
+            <div class="panel-item">
+              <a href="#">
+                <strong>{{ reward.name }}</strong> <br />
+                {{ reward.description }}
+              </a>
+            </div>
+          {% endfor %}
+          </div>
         </div>
+
         <div class="col-md-6">
-         <h1>Badges</h1>
+          <div class="panel">
+            <div class="panel-header">
+              <h2 class="pull-left">Badges</h2>
+              <a type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#create-badge">Criar badge</a>
+              <br style="clear: both" /> 
+            </div>
 
-         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#create-badge">Criar badge</a>
-          
+          {% for badge in badges %}
+            <div class="panel-item">
+              <a href="#">
+                <strong>{{ badge.name }}</strong> <br />
+                {{ badge.description }}
+              </a>
+            </div>
+          {% endfor %}
 
+          </div>
         </div>
 
       </div>

@@ -18,7 +18,7 @@
 
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> &nbsp; {{ request.user.first_name }} {{ request.user.last_name }} <b class="caret"></b></a>
+        <i class="icon-user"></i> &nbsp; {{ request.user.first_name }} {{ request.user.last_name }} <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="#">Configurações</a></li>
           <li class="divider"></li>
@@ -36,8 +36,8 @@
     <div class="container">
       <ul class="mainnav">
         <li class="active"><a href="index.html"><i class="icon-home"></i><span>Home</span> </a> </li>
-        <li><a href="classes.html"><i class="icon-list-alt"></i><span>Turmas</span> </a> </li>
-        <li><a href="badges.html"><i class="icon-trophy"></i><span>Badges</span> </a></li>
+        <li><a href="{% url 'Classes:index' %}"><i class="icon-list-alt"></i><span>Turmas</span> </a> </li>
+        <li><a href="{% url 'Rewards:index' %}"><i class="icon-trophy"></i><span>Badges</span> </a></li>
         <li><a href="rewards.html"><i class="icon-ok-sign"></i><span>Pontuações</span> </a> </li>
         <li><a href="statistics.html"><i class="icon-signal"></i><span>Estatísticas</span> </a> </li>
       </ul>
