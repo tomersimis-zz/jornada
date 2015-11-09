@@ -57,7 +57,7 @@
                     <td>
                       <ul>
                         {% for student in  class.students.all %}
-                        <li> {{student}}</li>
+                        <li>{{ student }}</li>
                         {% empty %}
                         <li>Essa turma não possui alunos</li>
                         {% endfor %}
