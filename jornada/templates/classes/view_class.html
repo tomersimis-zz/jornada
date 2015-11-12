@@ -99,9 +99,9 @@
     <div class="container">
       <div class="row test" align="right">
       {% if is_teacher %}
-        <a class="btn btn-primary" href="{% url 'Classes:edit' id=class.pk %}">Editar</a> <!--  href="" -->
-        <a class="btn btn-primary">Atribuir pontuação</a>
-        <a class="btn btn-primary">Atribuir badge</a>
+        <a class="btn btn-primary" id="button" href="{% url 'Classes:edit' id=class.pk %}">Editar</a> <!--  href="" -->
+        <a class="btn btn-primary" id="button" href="#reward-modal" data-toggle="modal">Atribuir pontuação</a>
+        <a class="btn btn-primary" id="button" href="#badge-modal" data-toggle="modal">Atribuir badge</a>
         {% endif %}
       </div>
 
@@ -159,8 +159,64 @@
         ...
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" id="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button type="button" id="button" class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="reward-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Atribuir pontuação</h4>
+      </div>
+      <div class="modal-body">
+        <div style="padding: 10px 30px 20px 20px">     
+          <div class="form-group">
+            <label for="name">Aluno</label>
+            
+          </div>
+          <div class="form-group">
+            <label for="name">Pontuação</label>
+            
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button type="button" id="button" class="btn btn-primary">Concluir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="badge-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Atribuir badge</h4>
+      </div>
+      <div class="modal-body">
+        <div style="padding: 10px 30px 20px 20px">     
+          <div class="form-group">
+            <label for="name">Aluno</label>
+            
+          </div>
+          <div class="form-group">
+            <label for="name">Badge</label>
+            
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button type="button" id="button" class="btn btn-primary">Concluir</button>
       </div>
     </div>
   </div>
