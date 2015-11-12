@@ -1,0 +1,147 @@
+<div class="widget widget-table action-table">
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Jornada</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link href="{% static "css/bootstrap_new.css" %}" rel="stylesheet">
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
+        rel="stylesheet">
+<link href="{% static "css/font-awesome.css" %}" rel="stylesheet">
+<link href="{% static "css/style.css" %}" rel="stylesheet">
+<link href="{% static "css/pages/dashboard.css" %}" rel="stylesheet">
+
+  <style type="text/css">
+    .classbuttons{
+      font: bold 13px monospace, "Helvetica Neue", Helvetica, Arial, clean, sans-serif !important;
+      text-shadow: 0 -1px 1px rgba(0,0,0,0.25), -2px 0 1px rgba(0,0,0,0.25);
+      border-radius: 5px;
+      -moz-border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      display: inline-block;
+      color: white;
+      padding: 5px 10px 5px;
+      white-space: nowrap;
+      cursor: pointer;
+      background: #00ba8b;
+      border-style: none;
+      text-align: center;
+      overflow: visible;
+    }
+    .test{
+      margin-bottom: 2%;
+      margin-right: 9%;
+    }
+    .column{
+    }
+    .classborder{
+      border-style:solid;
+      border-color: #00ba8b;
+    }
+    .classcontent{
+      text-indent: 10%;
+      font-family: monospace;
+    }
+    .classtitle{
+      text-align: center;
+      font-family: monospace;
+    }
+    .studentcontent{
+      text-indent: 5%;  
+      font-family: monospace;
+    }
+    .shot{
+      padding-left: 4%;
+      padding-right: 10%;
+    }
+  </style>
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+{% include 'nav.html' %}
+
+<!-- /subnavbar -->
+<div class="main">
+  <div class="main-inner">
+    <div class="container">
+      <div class="row test" align="right">
+        <button class="classbuttons" type="button">Editar</button> <!--  href="{% url 'Classes:edit' id=class.pk %}" -->
+        <button class="classbuttons" type="button">Atribuir pontuação</button>
+        <button class="classbuttons" type="button">Atribuir badge</button>
+      </div>
+
+      <div class="row column">
+        <div class="col-md-4 background">
+          <div class="widget widget-table action-table classborder">
+            <div class="widget-content">
+              <h3 class="classtitle">{{ class.name }}</h3>
+              <h4 class="classcontent">{{ class.discipline }}</h4>
+              <h4 class="classcontent">{{ class.grade }}</h4>
+            </div>
+          </div>
+          <div class="widget widget-table action-table classborder">
+            <div class="widget-content">
+              <h3 class="classtitle">Professor(es)</h3>
+              {% for teacher in  class.teachers.all %}
+              <h5 class="classcontent">{{ teacher }}</h5>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8 shot">
+          <div class="widget widget-table action-table">
+            <div class="widget-content">
+              <h3 class="classtitle" align="center">Alunos</h3>
+              {% for student in  class.students.all %}
+              <h5 class="studentcontent">{{ student }}</h5>
+              {% empty %}
+              <h5 class="studentcontent">Essa turma não possui alunos</h5>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /row --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /main-inner --> 
+</div>
+<!-- /main -->
+
+{% include 'footer.html' %}
+
+<!-- /footer --> 
+<!-- Le javascript
+================================================== --> 
+<!-- Placed at the end of the document so the pages load faster --> 
+<script src="{% static "js/jquery-1.7.2.min.js" %}"></script> 
+
+<script src="{% static "js/bootstrap.js" %}"></script>
+ 
+<script src="{% static "js/base.js" %}"></script> 
+
+<script type="text/javascript">
+  
+  $(document).ready(function(){
+    $('.remove-confirm').click(function(){
+      var r = confirm("Deseja remover a turma? Essa ação é permanente.");
+      if(r) window.location = $(this).data('href')
+    })
+  })
+
+</script>
+
+</body>
+</html>
