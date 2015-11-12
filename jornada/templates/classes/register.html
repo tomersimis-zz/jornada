@@ -97,45 +97,25 @@
 <div class="main">
   <div class="main-inner">
     <div class="container">
-      <div class="row test" align="right">
-        <a class="btn btn-primary" data-toggle="modal" data-target="#students-modal">Convidar alunos</a>
-        <a class="btn btn-primary">Editar</a> <!--  href="{% url 'Classes:edit' id=class.pk %}" -->
-        <a class="btn btn-primary">Atribuir pontuação</a>
-        <a class="btn btn-primary">Atribuir badge</a>
+      
+      <div class="row">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Confirmar entrada na turma</h4>
       </div>
+      <div class="modal-body">
+        <p>Você foi convidado para participar da turma <strong>{{ class.name }}</strong>, da disciplina <strong>{{ class.discipline }}</strong>, criada pelo(a) professor(a) <strong>{{ class.teachers.all.0 }}</strong>. </p>
+      </div>
+      <div class="modal-footer">
+        <a type="button" class="btn btn-default" href="{% url 'Classes:index' %}">Recusar</a>
+        <a type="button" class="btn btn-primary" href="{% url 'Classes:confirm_register' key=key %}">Confirmar</a>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
 
-      <div class="row column">
-        <div id="class-data" class="col-md-4 background-white">
-          <h1>{{ class.name }}</h1>
-          <h2 id="created-by">Criada por: Prof. {{ class.teachers.all.0 }}</h2>
-
-          <ul id="class-data-list">
-            <li><strong>Disciplina:</strong> {{ class.discipline }}</li>
-            <li><strong>Série:</strong> {{ class.discipline }}</li>
-            <li><strong>Link de registro: </strong> <a href="{% url 'Classes:register' key=key %}">Link</a></li>
-          </ul>
-            
-          <h3 class="title">Professores</h3>
-
-          <ul id="teachers">
-              {% for teacher in  class.teachers.all %}
-              <li>{{ teacher }}</li>
-              {% endfor %}
-          </ul>
-        </div>
-
-        <div class="col-md-8 shot">
-          <div class="widget widget-table action-table">
-            <div class="widget-content">
-              <h3 class="classtitle" align="center">Alunos</h3>
-              {% for student in  class.students.all %}
-              <h5 class="studentcontent">{{ student }}</h5>
-              {% empty %}
-              <h5 class="studentcontent">Essa turma não possui alunos</h5>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- /row --> 
@@ -157,6 +137,7 @@
       <div class="modal-body">
         ...
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
