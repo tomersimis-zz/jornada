@@ -3,14 +3,19 @@ from django.contrib.auth.decorators import login_required
 from jornada.util import is_teacher
 from rewards.forms  import RewardForm, BadgeForm
 from rewards.models import Reward, Badge
-from accounts.models import Teacher
+from accounts.models import Teacher, Student
 
 # Create your views here.
 @login_required(login_url='/usuario/login/')
 def index(request):
 
 	if not is_teacher(request.user):
-		return redirect('index')
+		#return redirect('index')
+		return render(request, 'students/student_rewards.html', {
+			'student': Student.objects.get(user=request.user),
+			'rewards': Student.objects.get(user=request.user).rewards.all(),
+			'badges': Student.objects.get(user=request.user).badges.all()
+		})
 
 	return render(request, 'rewards/index.html', {
 		'reward_form' : RewardForm(),

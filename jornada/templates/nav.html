@@ -37,7 +37,11 @@
       <ul class="mainnav">
         <li><a href="{% url 'index' %}"><i class="icon-home"></i><span>Home</span> </a> </li>
         <li><a href="{% url 'Classes:index' %}"><i class="icon-list-alt"></i><span>Turmas</span> </a> </li>
+        {% if is_teacher %}
         <li><a href="{% url 'Rewards:index' %}"><i class="icon-ok-sign"></i><span>Pontuações</span> </a> </li>
+        {% else %}
+        <li><a href="{% url 'Rewards:index' %}"><i class="icon-ok-sign"></i><span>Pontuações</span> </a> </li>
+        {% endif %}
         <li><a href="statistics.html"><i class="icon-signal"></i><span>Estatísticas</span> </a> </li>
       </ul>
     </div>
