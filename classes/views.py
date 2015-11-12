@@ -3,6 +3,9 @@ from classes.forms import ClassForm
 from classes.models import Class
 from django.contrib.auth.decorators import login_required
 from jornada.util import is_teacher
+from django.core.urlresolvers import reverse
+
+import base64
 
 from accounts.models import Teacher,Student
 
@@ -77,6 +80,47 @@ def edit_class(request, id):
 @login_required(login_url='/usuario/login/')
 def view(request, id):
 	context={
-		'class': Class.objects.get(pk=id)
+		'class': Class.objects.get(pk=id),
+		'key': base64.b64encode(bytes(id, 'utf-8'))
+
 	}
 	return render(request, 'classes/view_class.html', context)
+
+@login_required(login_url='/usuario/login/')
+def register(request, key):
+
+	if is_teacher(request.user):
+		return redirect('Classes:index')
+
+	student_obj = Student.objects.get(user=request.user)
+
+	pk = base64.b64decode(key)
+	obj = Class.objects.get(pk=pk)
+
+	if Class.objects.filter(pk=pk, students__in=[student_obj]):
+		return redirect(reverse('Classes:view', kwargs={'pk':pk}))
+
+	# obj.students.add(student_obj)
+	# obj.save()
+
+	return render(request, 'classes/register.html', {
+		'class': Class.objects.get(pk=pk),
+		'key': key
+	})
+
+def confirm_register(request, key):
+	if is_teacher(request.user):
+		return redirect('Classes:index')
+
+	student_obj = Student.objects.get(user=request.user)
+
+	pk = base64.b64decode(key)
+	obj = Class.objects.get(pk=pk)
+
+	if Class.objects.filter(pk=pk, students__in=[student_obj]):
+		return redirect(reverse('Classes:view', kwargs={'pk':pk}))
+
+	obj.students.add(student_obj)
+	obj.save()
+
+	return redirect('Classes:index')
