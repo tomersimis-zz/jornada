@@ -30,7 +30,9 @@
 
         <div class="col-md-12">
 
+        {% if is_teacher %}
         <a class="btn btn-primary" style="margin-bottom: 20px" href="{% url 'Classes:create' %}">Criar turma</a>
+        {% endif %}
 
            <div class="widget widget-table action-table">
             <div class="widget-header"> <i class="icon-th-list"></i>
@@ -56,8 +58,12 @@
                     <td><a href="{% url 'Classes:view' id=class.pk %}"> {{ class.discipline }} </a></td>
                     <td><a href="{% url 'Classes:view' id=class.pk %}"> {{ class.grade }} </a></td>
                     <td><a href="{% url 'Classes:view' id=class.pk %}"> {{ class.students.count }} </a></td>
-                    <td><a data-href="{% url 'Classes:remove' id=class.pk %}" class="btn btn-danger btn-small remove-confirm"><i class="btn-icon-only icon-remove"> </i></a>
+
+                    <td>
+                        {% if is_teacher %}
+                        <a data-href="{% url 'Classes:remove' id=class.pk %}" class="btn btn-danger btn-small remove-confirm"><i class="btn-icon-only icon-remove"> </i></a>
                         <a href="{% url 'Classes:edit' id=class.pk %}" class="btn btn-info btn-small"><i class="btn-icon-only icon-edit"> </i></a></td>
+                        {% endif %}
                   </tr>
 
                   {% empty %}

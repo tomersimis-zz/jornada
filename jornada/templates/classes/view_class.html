@@ -98,10 +98,11 @@
   <div class="main-inner">
     <div class="container">
       <div class="row test" align="right">
-        <a class="btn btn-primary" data-toggle="modal" data-target="#students-modal">Convidar alunos</a>
-        <a class="btn btn-primary">Editar</a> <!--  href="{% url 'Classes:edit' id=class.pk %}" -->
+      {% if is_teacher %}
+        <a class="btn btn-primary" href="{% url 'Classes:edit' id=class.pk %}">Editar</a> <!--  href="" -->
         <a class="btn btn-primary">Atribuir pontuação</a>
         <a class="btn btn-primary">Atribuir badge</a>
+        {% endif %}
       </div>
 
       <div class="row column">

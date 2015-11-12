@@ -20,7 +20,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <i class="icon-user"></i> &nbsp; {{ request.user.first_name }} {{ request.user.last_name }} <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a href="#">Configurações</a></li>
+          <li><a href="{% url 'Accounts:edit' %}">Configurações</a></li>
           <li class="divider"></li>
           <li><a href="{% url 'Accounts:logout' %}">Sair</a></li>
         </ul>

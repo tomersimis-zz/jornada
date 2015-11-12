@@ -20,5 +20,6 @@ urlpatterns = [
     url(r'^cadastro-professor$', 'accounts.views.signup_teacher', name = 'signup_teacher'),
     url(r'^cadastro-aluno$', 'accounts.views.signup_student', name = 'signup_student'),
     url(r'^login/', 'accounts.views.login', name = "login"),
+    url(r'^editar/', 'accounts.views.edit', name = "edit"),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name= 'logout')
 ]

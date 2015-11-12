@@ -12,13 +12,16 @@ from accounts.models import Teacher,Student
 @login_required(login_url='/usuario/login/')
 def index(request):
 
-	if is_teacher(request.user):
+	teacher = is_teacher(request.user)
+
+	if teacher:
 		classes = Class.objects.filter(teachers__in=[Teacher.objects.get(user=request.user)])
 	else:
 		classes = Class.objects.filter(students__in=[Student.objects.get(user=request.user)])
 
 	return render(request, 'classes/index.html', {
-		'classes': classes
+		'classes': classes,
+		'is_teacher': teacher
 	})
 
 @login_required(login_url='/usuario/login/')
@@ -81,7 +84,8 @@ def edit_class(request, id):
 def view(request, id):
 	context={
 		'class': Class.objects.get(pk=id),
-		'key': base64.b64encode(bytes(id, 'utf-8'))
+		'key': base64.b64encode(bytes(id, 'utf-8')),
+		'is_teacher': is_teacher(request.user)
 
 	}
 	return render(request, 'classes/view_class.html', context)
@@ -98,7 +102,7 @@ def register(request, key):
 	obj = Class.objects.get(pk=pk)
 
 	if Class.objects.filter(pk=pk, students__in=[student_obj]):
-		return redirect(reverse('Classes:view', kwargs={'pk':pk}))
+		return redirect(reverse('Classes:view', kwargs={'id':pk}))
 
 	# obj.students.add(student_obj)
 	# obj.save()
@@ -118,7 +122,7 @@ def confirm_register(request, key):
 	obj = Class.objects.get(pk=pk)
 
 	if Class.objects.filter(pk=pk, students__in=[student_obj]):
-		return redirect(reverse('Classes:view', kwargs={'pk':pk}))
+		return redirect(reverse('Classes:view', kwargs={'id':pk}))
 
 	obj.students.add(student_obj)
 	obj.save()
