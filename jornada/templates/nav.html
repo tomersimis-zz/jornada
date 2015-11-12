@@ -35,10 +35,9 @@
   <div class="subnavbar-inner">
     <div class="container">
       <ul class="mainnav">
-        <li {% if index_active %}class="active"{% endif%}><a href="index.html"><i class="icon-home"></i><span>Home</span> </a> </li>
-        <li {% if clas_active %}class="active"{% endif%}><a href="{% url 'Classes:index' %}"><i class="icon-list-alt"></i><span>Turmas</span> </a> </li>
-        <li {% if trophy_active %}class="active"{% endif%}><a href="{% url 'Rewards:index' %}"><i class="icon-trophy"></i><span>Badges</span> </a></li>
-        <li {% if rewards_active %}class="active"{% endif%}><a href="rewards.html"><i class="icon-ok-sign"></i><span>Pontuações</span> </a> </li>
+        <li {% if index_active %}class="active"{% endif%}><a href="{% url 'index' %}"><i class="icon-home"></i><span>Home</span> </a> </li>
+        <li {% if classes_active %}class="active"{% endif%}><a href="{% url 'Classes:index' %}"><i class="icon-list-alt"></i><span>Turmas</span> </a> </li>
+        <li {% if rewards_active %}class="active"{% endif%}><a href="{% url 'Rewards:index' %}"><i class="icon-ok-sign"></i><i class="icon-trophy"></i><span>Pontuações e Badges</span> </a> </li>
         <li {% if statistics_active %}class="active"{% endif%}><a href="{% url 'statistics' %}"><i class="icon-signal"></i><span>Estatísticas</span> </a> </li>
       </ul>
     </div>

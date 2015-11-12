@@ -29,5 +29,8 @@ class Class(models.Model):
 	students = models.ManyToManyField(Student)
 	description = models.CharField(max_length=200, blank=True)
 
+	def students_ordered_by_rank(self):
+		return self.students.all().annotate(rewards_sum = models.Sum("rewards__value")).order_by("-rewards_sum")
+
 	def __str__(self):
 	   return self.name + " - " + self.teachers.all()[0].user.first_name

@@ -36,6 +36,10 @@ class Student(models.Model):
     badges = models.ManyToManyField(Badge)
     rewards = models.ManyToManyField(Reward)
 
+    def get_rewards_sum(self):
+
+        return self.rewards.aggregate(rewards_sum = models.Sum('value'))['rewards_sum'] or 0
+
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name
 

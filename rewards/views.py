@@ -17,6 +17,7 @@ def index(request):
 		'badge_form': BadgeForm(),
 		'rewards' : Reward.objects.filter(created_by=request.user),
 		'badges' : Badge.objects.filter(created_by=request.user),
+		'rewards_active': True,
 	})
 
 

@@ -15,7 +15,8 @@ def index(request):
 		classes = Class.objects.filter(students__in=[Student.objects.get(user=request.user)])
 
 	return render(request, 'classes/index.html', {
-		'classes': classes
+		'classes': classes,
+		'classes_active': True,
 	})
 
 @login_required(login_url='/usuario/login/')
