@@ -4,6 +4,8 @@ from classes.models import Class
 from django.contrib.auth.decorators import login_required
 from jornada.util import is_teacher
 from django.core.urlresolvers import reverse
+from rewards.models import Badge, Reward
+from django.contrib import messages
 
 import base64
 
@@ -128,3 +130,23 @@ def confirm_register(request, key):
 	obj.save()
 
 	return redirect('Classes:index')
+
+def give_badges(request, id):
+
+	obj = Class.objects.get(pk=id)
+	badges = []
+	for teacher in obj.teachers.all():
+		badges = badges + list(Badge.objects.filter(created_by=teacher.user))
+
+	if request.method == 'POST':
+		badge = Badge.objects.get(pk=request.POST.get('badge'))
+		students = Student.objects.filter(pk__in=request.POST.getlist('students[]'))
+		for student in students:
+			student.badges.add(badge)
+			student.save()
+		messages.success(request, 'Badges atribuídas com sucesso.')
+
+	return render(request, 'classes/give_badges.html', {
+		'class': obj,
+		'badges': badges
+	})
