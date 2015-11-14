@@ -160,7 +160,6 @@ def give_badges(request, id):
 		'badges': badges
 	})
 
-
 def atribuir_professor(request, id):
 
 	if request.method == 'POST':
@@ -173,3 +172,24 @@ def atribuir_professor(request, id):
 		messages.success(request, 'Professor atribuído com sucesso.')
 
 	return redirect(reverse('Classes:view', kwargs={'id':id}))
+
+def give_rewards(request, id):
+
+	obj = Class.objects.get(pk=id)
+	rewards = []
+	for teacher in obj.teachers.all():
+		rewards = rewards + list(Reward.objects.filter(created_by=teacher.user))
+
+	if request.method == 'POST':
+		reward = Reward.objects.get(pk=request.POST.get('reward'))
+		students = Student.objects.filter(pk__in=request.POST.getlist('students[]'))
+		for student in students:
+			student.rewards.add(reward)
+			student.save()
+		messages.success(request, 'Pontuações atribuídas com sucesso.')
+
+	return render(request, 'classes/give_rewards.html', {
+		'class': obj,
+		'rewards': rewards
+	})
+>>>>>>> e8dc91fec68d00c0942965739cb71982a6277b2e
