@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^badges/(?P<id>\d+)$', 'classes.views.give_badges', name = 'give_badges'),
     url(r'^confirmar-registro/(?P<key>.+)$', 'classes.views.confirm_register', name = 'confirm_register'),
     url(r'^(?P<id>\d+)$', 'classes.views.view', name = 'view'),
+    url(r'^teachers/(?P<id>\d+)$', 'classes.views.atribuir_professor', name='atribuir_professor'),
 ]

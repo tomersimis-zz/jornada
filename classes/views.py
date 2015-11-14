@@ -85,10 +85,18 @@ def edit_class(request, id):
 
 @login_required(login_url='/usuario/login/')
 def view(request, id):
+
+	aux = set(Teacher.objects.all())
+	aux2 = set(Class.objects.get(pk=id).teachers.all())
+
+	aux -= aux2
+			
+
 	context={
 		'class': Class.objects.get(pk=id),
 		'key': base64.b64encode(bytes(id, 'utf-8')),
-		'is_teacher': is_teacher(request.user)
+		'is_teacher': is_teacher(request.user),
+		'teachers': aux
 
 	}
 	return render(request, 'classes/view_class.html', context)
@@ -151,3 +159,17 @@ def give_badges(request, id):
 		'class': obj,
 		'badges': badges
 	})
+
+
+def atribuir_professor(request, id):
+
+	if request.method == 'POST':
+		prof = Teacher.objects.filter(pk__in=request.POST.getlist('teachers[]'))
+		classe = Class.objects.get(pk=id)
+
+		for teacher in prof:
+			classe.teachers.add(teacher)
+			classe.save()
+		messages.success(request, 'Professor atribuído com sucesso.')
+
+	return redirect(reverse('Classes:view', kwargs={'id':id}))
