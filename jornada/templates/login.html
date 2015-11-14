@@ -71,18 +71,6 @@
 	
 </div> <!-- /navbar -->
 
-<ul>
-    {% for message in messages %}
-    <li class="{{ message.tags }}">
-        {% if 'safe' in message.tags %}
-            {{ message|safe }}
-        {% else %}
-            {{ message }}
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
-
 <div class="account-container">
 	
 	<div class="content clearfix">
@@ -95,6 +83,15 @@
 			<div class="login-fields">
 				
 				<p>Informe seus dados</p>
+				{% for message in messages %}
+				<p class="{{ message.tags }}">
+					{% if 'safe' in message.tags %}
+			            {{ message|safe }}
+			        {% else %}
+			            {{ message }}
+			        {% endif %}
+				</p>
+				{% endfor %}
 				
 				<div class="field">
 					<label for="username">Nome de usuário:</label>
