@@ -192,4 +192,3 @@ def give_rewards(request, id):
 		'class': obj,
 		'rewards': rewards
 	})
->>>>>>> e8dc91fec68d00c0942965739cb71982a6277b2e
