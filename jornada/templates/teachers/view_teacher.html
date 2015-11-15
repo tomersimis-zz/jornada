@@ -1,0 +1,197 @@
+<div class="widget widget-table action-table">
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Jornada</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link href="{% static "css/bootstrap_new.css" %}" rel="stylesheet">
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
+        rel="stylesheet">
+<link href="{% static "css/font-awesome.css" %}" rel="stylesheet">
+<link href="{% static "css/style.css" %}" rel="stylesheet">
+<link href="{% static "css/pages/dashboard.css" %}" rel="stylesheet">
+
+  <style type="text/css">
+    .test{
+      margin-bottom: 2%;
+      margin-right: 9%;
+    }
+    .column{
+    }
+    .classborder{
+      border-style:solid;
+      border-color: #00ba8b;
+    }
+    .classcontent{
+      text-indent: 10%;
+      font-family: monospace;
+    }
+    .classtitle{
+      text-align: center;
+      font-family: monospace;
+    }
+    .studentcontent{
+      text-indent: 5%;  
+      font-family: monospace;
+    }
+    .shot{
+      padding-left: 4%;
+      padding-right: 10%;
+    }
+
+    .background-white{
+      background: #fff;
+    }
+
+    #created-by{
+      font-size: 12px;
+      margin-top: 0px;
+    }
+
+    #class-data-list{
+      margin-top: 10px;
+      padding: 10px 0px 0px 0px;
+      list-style-type: none;
+    }
+
+    #class-data-list li{
+      font-size: 14px;
+      border-top: solid 1px #F2F2F2;
+      padding: 10px;
+    }
+
+    #badgecontent{
+      margin: 0px;
+      padding: 0px;
+    }
+
+    #badgecontent li{
+      display: block;
+      border-bottom: solid 1px #ccc;
+      padding: 10px 20px;
+      color: #a5a5a5;
+    }
+
+    #badgecontent li strong{
+      font-size: 14px;
+      color: #0e0e0e;
+    }
+
+    #teachers{
+      margin:0px !important ;
+      list-style-type: none;
+      font-size: 14px;
+      padding: 0px;
+    }
+
+    #teachers li{
+      margin: 0px;
+      border-top: none;
+      border-bottom: solid 1px #F2F2F2;
+      padding: 10px;
+    }
+
+    .title{
+      background: #F2F2F2;
+      padding: 10px;
+      margin: 0px;
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+{% include 'nav.html' %}
+
+<!-- /subnavbar -->
+<div class="main">
+  <div class="main-inner">
+    <div class="container">
+
+      <div class="row column">
+        <div id="class-data" class="col-md-4 background-white">
+          <h1>{{ teacher }}</h1>
+
+          <ul id="class-data-list">
+            <li><strong>Escola(s):</strong> {{ teacher.school }}</li>
+            <!-- <li><strong>Série:</strong> {{ class.grade }}</li> -->
+          </ul>
+            
+          <h3 class="title">Turmas</h3>
+
+          <ul id="teachers">
+              {% for class in  classes %}
+              <li><a href="{% url 'Classes:view' id=class.pk %}">{{ class.name }}</a></li>
+              {% endfor %}
+          </ul>
+        </div>
+
+        <div class="col-md-8 shot">
+          <div class="widget widget-table action-table">
+            <div class="widget-content">
+              <h3 class="classtitle" align="center">Badges</h3>
+              <!-- <ul id="badgecontent">
+                {% for badge in  student.badges.all %}
+                 <li>
+                  <strong>{{ badge.name }}</strong>
+                  {{ badge.description }}
+                 </li>
+                {% empty %}
+                  <h5 class="studentcontent">Esse alunos não possui badges</h5>
+                {% endfor %}
+              </ul> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- /row --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /main-inner --> 
+</div>
+<!-- /main -->
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="students-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Convidar alunos</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button type="button" id="button" class="btn btn-primary">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+{% include 'footer.html' %}
+
+<!-- /footer --> 
+<!-- Le javascript
+================================================== --> 
+<!-- Placed at the end of the document so the pages load faster --> 
+<script src="{% static "js/jquery-1.7.2.min.js" %}"></script> 
+
+<script src="{% static "js/bootstrap.js" %}"></script>
+ 
+<script src="{% static "js/base.js" %}"></script> 
+
+
+</body>
+</html>

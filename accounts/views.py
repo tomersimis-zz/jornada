@@ -96,3 +96,12 @@ def view_student(request, id):
 	}
 
 	return render(request, 'students/view_student.html', context)
+
+@login_required(login_url='/usuario/login/')
+def view_teacher(request, id):
+	context = {
+		'teacher': Teacher.objects.get(pk=id),
+		'classes': Class.objects.filter(teachers__in=[id])
+	}
+
+	return render(request, 'teachers/view_teacher.html', context)
