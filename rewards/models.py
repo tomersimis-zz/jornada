@@ -1,12 +1,16 @@
 from django.db import models
 
 from django.contrib.auth.models import User
+from accounts.models import Student
+from classes.models import Class
 
 # Create your models here.
 class Reward(models.Model):
     name = models.CharField(max_length=50, blank=True)
     description = models.CharField(max_length=200, blank=True)
-    value = models.IntegerField(blank=True, null=True)
+    value = models.IntegerField(blank=True, default = 0)
+    associated_class = models.ForeignKey(Class, default = 1)
+    associated_students = models.ManyToManyField(Student)
     created_by = models.ForeignKey(User)
 
     def __str__(self):
@@ -15,6 +19,8 @@ class Reward(models.Model):
 
 class Badge(models.Model):
     name = models.CharField(max_length=50, blank=True)
+    associated_class = models.ForeignKey(Class, default = 1)
+    associated_students = models.ManyToManyField(Student)
     description = models.CharField(max_length=200, blank=True)
     created_by = models.ForeignKey(User)
 

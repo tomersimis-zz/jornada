@@ -2,8 +2,6 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
-from rewards.models import Badge, Reward
-
 GRADE_CHOICES = (
     ('1ef', '1º ano'),
     ('2ef', '2º ano'),
@@ -33,12 +31,6 @@ class Student(models.Model):
     image = models.ImageField(upload_to='images/users')
     school = models.CharField(max_length=100, blank=True)
     grade = models.CharField(max_length=50, blank=True, choices=GRADE_CHOICES)
-    badges = models.ManyToManyField(Badge)
-    rewards = models.ManyToManyField(Reward)
-
-    def get_rewards_sum(self):
-
-        return self.rewards.aggregate(rewards_sum = models.Sum('value'))['rewards_sum'] or 0
 
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name
