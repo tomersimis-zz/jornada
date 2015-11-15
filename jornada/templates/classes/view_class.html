@@ -100,15 +100,10 @@
       <div class="row test" align="right">
       {% if is_teacher %}
         <a class="btn btn-primary" id="button" href="{% url 'Classes:edit' id=class.pk %}">Editar</a> <!--  href="" -->
-<<<<<<< HEAD
         <a class="btn btn-primary" id="button" href="#reward-modal" data-toggle="modal">Atribuir Pontuação</a>
         <a class="btn btn-primary" id="button" href="#badge-modal" data-toggle="modal">Atribuir Badge</a>
 
         <a class="btn btn-primary" id="button" href="#prof-modal" data-toggle="modal">Atribuir Professor</a>
-=======
-        <a class="btn btn-primary" id="button" href="{% url 'Classes:give_rewards' id=class.pk %}">Atribuir pontuação</a>
-        <a class="btn btn-primary" id="button" href="{% url 'Classes:give_badges' id=class.pk %}">Atribuir badges</a>
->>>>>>> e8dc91fec68d00c0942965739cb71982a6277b2e
         {% endif %}
       </div>
 
