@@ -150,3 +150,23 @@ def give_badges(request, id):
 		'class': obj,
 		'badges': badges
 	})
+
+def give_rewards(request, id):
+
+	obj = Class.objects.get(pk=id)
+	rewards = []
+	for teacher in obj.teachers.all():
+		rewards = rewards + list(Reward.objects.filter(created_by=teacher.user))
+
+	if request.method == 'POST':
+		reward = Reward.objects.get(pk=request.POST.get('reward'))
+		students = Student.objects.filter(pk__in=request.POST.getlist('students[]'))
+		for student in students:
+			student.rewards.add(reward)
+			student.save()
+		messages.success(request, 'Pontuações atribuídas com sucesso.')
+
+	return render(request, 'classes/give_rewards.html', {
+		'class': obj,
+		'rewards': rewards
+	})
