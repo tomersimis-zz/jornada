@@ -21,5 +21,7 @@ urlpatterns = [
     url(r'^cadastro-aluno$', 'accounts.views.signup_student', name = 'signup_student'),
     url(r'^login/', 'accounts.views.login', name = "login"),
     url(r'^editar/', 'accounts.views.edit', name = "edit"),
-    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name= 'logout')
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name= 'logout'),
+    url(r'^perfil-aluno/(?P<id>\d+)/$', 'accounts.views.view_student', name='view'),
+    url(r'^perfil-professor/(?P<id>\d+)/$', 'accounts.views.view_teacher', name='viewteacher')
 ]

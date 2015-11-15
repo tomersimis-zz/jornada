@@ -100,8 +100,10 @@
       <div class="row test" align="right">
       {% if is_teacher %}
         <a class="btn btn-primary" id="button" href="{% url 'Classes:edit' id=class.pk %}">Editar</a> <!--  href="" -->
-        <a class="btn btn-primary" id="button" href="#reward-modal" data-toggle="modal">Atribuir pontuação</a>
-        <a class="btn btn-primary" id="button" href="#badge-modal" data-toggle="modal">Atribuir badge</a>
+        <a class="btn btn-primary" id="button" href="#reward-modal" data-toggle="modal">Atribuir Pontuação</a>
+        <a class="btn btn-primary" id="button" href="#badge-modal" data-toggle="modal">Atribuir Badge</a>
+
+        <a class="btn btn-primary" id="button" href="#prof-modal" data-toggle="modal">Atribuir Professor</a>
         {% endif %}
       </div>
 
@@ -112,7 +114,7 @@
 
           <ul id="class-data-list">
             <li><strong>Disciplina:</strong> {{ class.discipline }}</li>
-            <li><strong>Série:</strong> {{ class.discipline }}</li>
+            <li><strong>Série:</strong> {{ class.grade }}</li>
             <li><strong>Link de registro: </strong> <a href="{% url 'Classes:register' key=key %}">Link</a></li>
           </ul>
             
@@ -120,7 +122,7 @@
 
           <ul id="teachers">
               {% for teacher in  class.teachers.all %}
-              <li>{{ teacher }}</li>
+              <li><a href="{% url 'Accounts:viewteacher' id=teacher.id %}">{{ teacher }}</a></li>
               {% endfor %}
           </ul>
         </div>
@@ -130,7 +132,7 @@
             <div class="widget-content">
               <h3 class="classtitle" align="center">Alunos</h3>
               {% for student in  class.students.all %}
-              <h5 class="studentcontent">{{ student }}</h5>
+              <h5 class="studentcontent"><a href="{% url 'Accounts:view' id=student.pk %}">{{ student }}</a></h5>
               {% empty %}
               <h5 class="studentcontent">Essa turma não possui alunos</h5>
               {% endfor %}
@@ -195,29 +197,35 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="badge-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="prof-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Atribuir badge</h4>
+        <h4 class="modal-title" id="myModalLabel">Atribuir Professor</h4>
       </div>
+      <form action="{% url 'Classes:atribuir_professor' id=class.pk %}" method="post">
+      {% csrf_token %}
       <div class="modal-body">
         <div style="padding: 10px 30px 20px 20px">     
           <div class="form-group">
-            <label for="name">Aluno</label>
-            
-          </div>
-          <div class="form-group">
-            <label for="name">Badge</label>
-            
-          </div>
+          
+            <label for="name">Professores</label>
+              {% for teacher in teachers %} 
+              <div class="toggle-btn-div">
+                <label onclick="" class="toggle-btn noscript">
+              <input type="checkbox" name="teachers[]" value="{{ teacher.pk }}"/> {{ teacher }}</label>
+              </div>
+              {% endfor %}
+              
+          </div> <!-- aqui -->
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" id="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        <button type="button" id="button" class="btn btn-primary">Concluir</button>
+        <button type="submit" id="button" class="btn btn-primary">Concluir</button>
       </div>
+      </form>
     </div>
   </div>
 </div>

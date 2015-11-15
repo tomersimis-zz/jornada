@@ -118,11 +118,11 @@
 
       <div class="row column">
         <div id="class-data" class="col-md-4 background-white">
-          <h1>{{ student }}</h1>
+          <h1>{{ teacher }}</h1>
 
           <ul id="class-data-list">
-            <li><strong>Escola:</strong> {{ student.school }}</li>
-            <li><strong>Série:</strong> {{ class.grade }}</li>
+            <li><strong>Escola(s):</strong> {{ teacher.school }}</li>
+            <!-- <li><strong>Série:</strong> {{ class.grade }}</li> -->
           </ul>
             
           <h3 class="title">Turmas</h3>
@@ -139,13 +139,13 @@
             <div class="widget-content">
               <h3 class="classtitle" align="center">Badges</h3>
               <ul id="badgecontent">
-                {% for badge in  student.badges.all %}
+                {% for badge in  badges %}
                  <li>
                   <strong>{{ badge.name }}</strong>
                   {{ badge.description }}
                  </li>
                 {% empty %}
-                  <h5 class="studentcontent">Esse alunos não possui badges</h5>
+                  <h5 class="studentcontent">Esse professor não criou badges</h5>
                 {% endfor %}
               </ul>
             </div>
