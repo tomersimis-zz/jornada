@@ -32,6 +32,9 @@ class Student(models.Model):
     school = models.CharField(max_length=100, blank=True)
     grade = models.CharField(max_length=50, blank=True, choices=GRADE_CHOICES)
 
+    def total_value_in_class(self, target_class):
+        return self.reward_set.filter(associated_class = target_class).aggregate(sum = models.Sum('value'))['sum'] or 0
+
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name
 

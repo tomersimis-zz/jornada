@@ -26,7 +26,10 @@ def statistics(request):
 		classes = Class.objects.filter(students__in=[Student.objects.get(user=request.user)])
 
 	for entry in classes:
-			classes_context.append(entry)
+		students = []
+		for student in entry.students.all().order_by('user__first_name', 'user__last_name'):
+			students.append({'name': str(student), 'total': student.total_value_in_class(entry)})
+		classes_context.append((entry, students))
 
 	context['classes'] = classes_context
 	
