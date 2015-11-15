@@ -63,6 +63,23 @@
       padding: 10px;
     }
 
+    #badgecontent{
+      margin: 0px;
+      padding: 0px;
+    }
+
+    #badgecontent li{
+      display: block;
+      border-bottom: solid 1px #ccc;
+      padding: 10px 20px;
+      color: #a5a5a5;
+    }
+
+    #badgecontent li strong{
+      font-size: 14px;
+      color: #0e0e0e;
+    }
+
     #teachers{
       margin:0px !important ;
       list-style-type: none;
@@ -82,6 +99,7 @@
       padding: 10px;
       margin: 0px;
       margin-top: 20px;
+      text-align: center;
     }
   </style>
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -97,44 +115,42 @@
 <div class="main">
   <div class="main-inner">
     <div class="container">
-      <div class="row test" align="right">
-        <!-- <a class="btn btn-primary" data-toggle="modal" data-target="#students-modal">Convidar alunos</a>
-        <a class="btn btn-primary">Editar</a> href="{% url 'Classes:edit' id=class.pk %}" 
-        <a class="btn btn-primary">Atribuir pontuação</a>
-        <a class="btn btn-primary">Atribuir badge</a> -->
-      </div>
 
       <div class="row column">
-        <!-- <div id="class-data" class="col-md-4 background-white">
-          <h1>{{ class.name }}</h1>
-          <h2 id="created-by">PAGINA DO ALUNOCriada por: Prof. {{ class.teachers.all.0 }}</h2>
+        <div id="class-data" class="col-md-4 background-white">
+          <h1>{{ student }}</h1>
 
           <ul id="class-data-list">
-            <li><strong>Disciplina:</strong> {{ class.discipline }}</li>
-            <li><strong>Série:</strong> {{ class.discipline }}</li>
+            <li><strong>Escola:</strong> {{ student.school }}</li>
+            <li><strong>Série:</strong> {{ class.grade }}</li>
           </ul>
             
-          <h3 class="title">Professores</h3>
+          <h3 class="title">Turmas</h3>
 
           <ul id="teachers">
-              {% for teacher in  class.teachers.all %}
-              <li>{{ teacher }}</li>
+              {% for class in  classes %}
+              <li><a href="{% url 'Classes:view' id=class.pk %}">{{ class.name }}</a></li>
               {% endfor %}
           </ul>
-        </div> -->
+        </div>
 
-        <!-- <div class="col-md-8 shot">
+        <div class="col-md-8 shot">
           <div class="widget widget-table action-table">
             <div class="widget-content">
-              <h3 class="classtitle" align="center">Alunos</h3>
-              {% for student in  class.students.all %}
-              <h5 class="studentcontent">{{ student }}</h5>
-              {% empty %}
-              <h5 class="studentcontent">Essa turma não possui alunos</h5>
-              {% endfor %}
+              <h3 class="classtitle" align="center">Badges</h3>
+              <ul id="badgecontent">
+                {% for badge in  student.badges.all %}
+                 <li>
+                  <strong>{{ badge.name }}</strong>
+                  {{ badge.description }}
+                 </li>
+                {% empty %}
+                  <h5 class="studentcontent">Esse alunos não possui badges</h5>
+                {% endfor %}
+              </ul>
             </div>
           </div>
-        </div> -->
+        </div>
       </div>
 
       <!-- /row --> 
@@ -157,8 +173,8 @@
         ...
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" id="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button type="button" id="button" class="btn btn-primary">Salvar</button>
       </div>
     </div>
   </div>
@@ -176,16 +192,6 @@
  
 <script src="{% static "js/base.js" %}"></script> 
 
-<script type="text/javascript">
-  
-  /* $(document).ready(function(){
-    $('.remove-confirm').click(function(){
-      var r = confirm("Deseja remover a turma? Essa ação é permanente.");
-      if(r) window.location = $(this).data('href')
-    })
-  }) */
-
-</script>
 
 </body>
 </html>

@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from jornada.util import is_teacher
 from django.contrib import messages
+from classes.models import Class
 
 def signup_teacher(request):
 
@@ -86,3 +87,12 @@ def edit(request):
 		'custom_form': custom_form,
 		'is_teacher': teacher
 	}) 
+
+@login_required(login_url='/usuario/login/')
+def view_student(request, id):
+	context = {
+		'student': Student.objects.get(pk=id),
+		'classes': Class.objects.filter(students__in=[id])
+	}
+
+	return render(request, 'students/view_student.html', context)

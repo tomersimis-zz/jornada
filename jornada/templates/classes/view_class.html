@@ -112,7 +112,7 @@
 
           <ul id="class-data-list">
             <li><strong>Disciplina:</strong> {{ class.discipline }}</li>
-            <li><strong>Série:</strong> {{ class.discipline }}</li>
+            <li><strong>Série:</strong> {{ class.grade }}</li>
             <li><strong>Link de registro: </strong> <a href="{% url 'Classes:register' key=key %}">Link</a></li>
           </ul>
             
@@ -130,7 +130,7 @@
             <div class="widget-content">
               <h3 class="classtitle" align="center">Alunos</h3>
               {% for student in  class.students.all %}
-              <h5 class="studentcontent">{{ student }}</h5>
+              <h5 class="studentcontent"><a href="{% url 'Accounts:view' id=student.pk %}">{{ student }}</a></h5>
               {% empty %}
               <h5 class="studentcontent">Essa turma não possui alunos</h5>
               {% endfor %}
