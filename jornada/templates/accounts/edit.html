@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Criação/Edição de Turma - Jornada</title>
+<title>Configurações do usuário - Jornada</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
@@ -34,22 +34,6 @@
 
 {% include 'nav.html' %}
 
-{% if form.errors %}
-  <!-- Error messaging -->
-  <div id="errors">
-    <div class="inner">
-      <p>There were some errors in the information you entered. Please correct the following:</p>
-      {{ form.non_field_errors }}
-      <ul>
-        {% for field in form %}
-          {% if field.errors %}<li>{{ field.label }}: {{ field.errors|striptags }}</li>{% endif %}
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-  <!-- /Error messaging -->
-{% endif %}
-
 <!-- /subnavbar -->
 <div class="main">
   <div class="main-inner">
@@ -57,53 +41,78 @@
     <div class="container">
 
       <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          {% if messages %}
+          <div class="alert alert-success" style="padding: 20px">
+            <ul>
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+          </div>
+      </div>
+
+      <div class="row">
         <div class="col-md-6 col-md-offset-3" style="background: #fff">
 
           <form action="#" method="post" class="classic-form" style="padding: 20px">
             {% csrf_token %}
 
-            <h1 style="margin: 10px 0px">{% if edit %} Edição {% else %} Criação {% endif %} de Turma no Jornada</h1>
+            <h1 style="margin: 10px 0px">Configurações do usuário</h1>
 
             <div class="create-class-fields">
 
-
               <div class="field">
                 <label for="name">Nome</label>
-                {% render_field form.name placeholder=form.name.label %}
-                {{ form.name.errors }}
+                {% render_field form.first_name placeholder=form.first_name.label %}
+                {{ form.first_name.errors }}
               </div> <!-- /field -->
 
               <div class="field">
-                <label for="name">Série:</label>
-                {% render_field form.grade placeholder=form.grade.label %}
-                {{ form.grade.errors }}
+                <label for="name">Sobrenome</label>
+                {% render_field form.last_name placeholder=form.last_name.label %}
+                {{ form.last_name.errors }}
               </div> <!-- /field -->
 
               <div class="field">
-                <label for="discipline">Disciplina</label>
-                {% render_field form.discipline placeholder=form.discipline.label %}
-                {{ form.discipline.errors }}
+                <label for="name">Nome de usuário</label>
+                {% render_field form.username placeholder=form.username.label %}
+                {{ form.username.errors }}
               </div> <!-- /field -->
 
               <div class="field">
-                <label for="time">Horário</label>
-                {% render_field form.time placeholder=form.time.label %}
-                {{ form.time.errors }}
-              </div> <!-- /field -->
-
-              <div class="field">
-                <label for="location">Local</label>
-                {% render_field form.location placeholder=form.location.label %}
-                {{ form.location.errors }}
+                <label for="name">Email</label>
+                {% render_field form.email placeholder=form.email.label %}
+                {{ form.email.errors }}
               </div> <!-- /field -->
 
               <p style="margin-top: 20px; border-top: solid 2px #f2f2f2; padding-top: 10px"><strong>Dados adicionais</strong></p>
 
               <div class="field">
-                <label for="description">Descrição</label>
-                {% render_field form.description placeholder=form.description.label %}
-                {{ form.description.errors }}
+                <label for="name">Escola</label>
+                {% render_field custom_form.school placeholder=custom_form.school.label %}
+                {{ custom_form.school.errors }}
               </div> <!-- /field -->
+
+              {% if is_teacher %}
+
+                <div class="field">
+                  <label for="name">Disciplinas que leciona</label>
+                  {% render_field custom_form.disciplines placeholder="Disciplinas que leciona" %}
+                  {{ custom_form.disciplines.errors }}
+                </div> <!-- /field -->
+
+              {% else %}
+
+                <div class="field">
+                  <label for="name">Série</label>
+                    {% render_field custom_form.grade placeholder="Série" %}
+                    {{ custom_form.grade.errors }}
+                </div> <!-- /field -->
+
+              {% endif %}
 
             </div> <!-- /login-fields -->
 
@@ -114,7 +123,7 @@
                 <label class="choice" for="Field">Agree with the Terms & Conditions.</label>
               </span>-->
 
-              <button class="button btn btn-primary btn-large">{% if edit %} Editar {% else %} Criar {% endif %} Turma</button>
+              <button class="button btn btn-primary btn-large">Salvar</button>
 
             </div> <!-- .actions -->
 

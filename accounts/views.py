@@ -1,7 +1,10 @@
 from django.shortcuts import render, render_to_response, redirect
-from accounts.forms import TeacherForm, UserForm, StudentForm
-from accounts.models import GRADE_CHOICES
+from accounts.forms import EditUserForm, TeacherForm, UserForm, StudentForm
+from accounts.models import GRADE_CHOICES, Student, Teacher
 from django.contrib.auth import authenticate, login as auth_login
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from jornada.util import is_teacher
 from django.contrib import messages
 
 def signup_teacher(request):
@@ -60,3 +63,26 @@ def login(request):
 			messages.error(request, 'Dados de usuário inválidos. Por favor, tente novamente.')
 
 	return render(request, 'login.html')
+
+@login_required(login_url='/usuario/login/')
+def edit(request):
+	teacher = is_teacher(request.user)
+
+	if teacher:
+		custom_form = TeacherForm(request.POST or None, instance=Teacher.objects.get(user=request.user))
+	else:
+		custom_form = StudentForm(request.POST or None, instance=Student.objects.get(user=request.user))
+
+	user_form = EditUserForm(request.POST or None, instance=request.user)
+
+	if request.method == 'POST':
+		if custom_form.is_valid() and user_form.is_valid():
+			user = user_form.save()
+			custom_form.save()
+			messages.success(request, 'Configurações editadas com sucesso')
+	
+	return render(request, 'accounts/edit.html', {
+		'form': user_form,
+		'custom_form': custom_form,
+		'is_teacher': teacher
+	}) 

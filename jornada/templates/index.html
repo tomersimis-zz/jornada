@@ -38,10 +38,11 @@
                   <div id="big_stats" class="cf">
                     <div class="stat"> Turmas <br /> <span class="value"> {{ classes.count }}</span> </div>
                     <!-- .stat -->
-                    
+                    {% if is_teacher %}
                     <div class="stat">  Alunos <br /> <span class="value">{{ students.count }}</span> </div>
                     <!-- .stat -->
-                    
+                    {% endif %}
+
                     <div class="stat">  Último login <br /> <span class="value" style="font-size: 24px; padding: 10px">{{ request.user.last_login }}</span> </div>
                     <!-- .stat -->
 

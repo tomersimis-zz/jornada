@@ -98,22 +98,20 @@
   <div class="main-inner">
     <div class="container">
       <div class="row test" align="right">
-      {% if is_teacher %}
-        <a class="btn btn-primary" id="button" href="{% url 'Classes:edit' id=class.pk %}">Editar</a> <!--  href="" -->
-        <a class="btn btn-primary" id="button" href="#reward-modal" data-toggle="modal">Atribuir pontuação</a>
-        <a class="btn btn-primary" id="button" href="#badge-modal" data-toggle="modal">Atribuir badge</a>
-        {% endif %}
+        <!-- <a class="btn btn-primary" data-toggle="modal" data-target="#students-modal">Convidar alunos</a>
+        <a class="btn btn-primary">Editar</a> href="{% url 'Classes:edit' id=class.pk %}" 
+        <a class="btn btn-primary">Atribuir pontuação</a>
+        <a class="btn btn-primary">Atribuir badge</a> -->
       </div>
 
       <div class="row column">
-        <div id="class-data" class="col-md-4 background-white">
+        <!-- <div id="class-data" class="col-md-4 background-white">
           <h1>{{ class.name }}</h1>
-          <h2 id="created-by">Criada por: Prof. {{ class.teachers.all.0 }}</h2>
+          <h2 id="created-by">PAGINA DO ALUNOCriada por: Prof. {{ class.teachers.all.0 }}</h2>
 
           <ul id="class-data-list">
             <li><strong>Disciplina:</strong> {{ class.discipline }}</li>
             <li><strong>Série:</strong> {{ class.discipline }}</li>
-            <li><strong>Link de registro: </strong> <a href="{% url 'Classes:register' key=key %}">Link</a></li>
           </ul>
             
           <h3 class="title">Professores</h3>
@@ -123,9 +121,9 @@
               <li>{{ teacher }}</li>
               {% endfor %}
           </ul>
-        </div>
+        </div> -->
 
-        <div class="col-md-8 shot">
+        <!-- <div class="col-md-8 shot">
           <div class="widget widget-table action-table">
             <div class="widget-content">
               <h3 class="classtitle" align="center">Alunos</h3>
@@ -136,7 +134,7 @@
               {% endfor %}
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <!-- /row --> 
@@ -148,7 +146,7 @@
 <!-- /main -->
 
 <!-- Modal -->
-<div class="modal fade" id="students-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- <div class="modal fade" id="students-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -159,68 +157,12 @@
         ...
       </div>
       <div class="modal-footer">
-        <button type="button" id="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        <button type="button" id="button" class="btn btn-primary">Salvar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="reward-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Atribuir pontuação</h4>
-      </div>
-      <div class="modal-body">
-        <div style="padding: 10px 30px 20px 20px">     
-          <div class="form-group">
-            <label for="name">Aluno</label>
-            
-          </div>
-          <div class="form-group">
-            <label for="name">Pontuação</label>
-            
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        <button type="button" id="button" class="btn btn-primary">Concluir</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="badge-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Atribuir badge</h4>
-      </div>
-      <div class="modal-body">
-        <div style="padding: 10px 30px 20px 20px">     
-          <div class="form-group">
-            <label for="name">Aluno</label>
-            
-          </div>
-          <div class="form-group">
-            <label for="name">Badge</label>
-            
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        <button type="button" id="button" class="btn btn-primary">Concluir</button>
-      </div>
-    </div>
-  </div>
-</div>
+</div> -->
 
 {% include 'footer.html' %}
 
@@ -236,12 +178,12 @@
 
 <script type="text/javascript">
   
-  $(document).ready(function(){
+  /* $(document).ready(function(){
     $('.remove-confirm').click(function(){
       var r = confirm("Deseja remover a turma? Essa ação é permanente.");
       if(r) window.location = $(this).data('href')
     })
-  })
+  }) */
 
 </script>
 
