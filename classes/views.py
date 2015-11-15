@@ -23,6 +23,7 @@ def index(request):
 
 	return render(request, 'classes/index.html', {
 		'classes': classes,
+		'classes_active': True,
 		'is_teacher': teacher
 	})
 

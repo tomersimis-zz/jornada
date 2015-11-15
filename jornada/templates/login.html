@@ -104,6 +104,18 @@
 				</div> <!-- /password -->
 				
 			</div> <!-- /login-fields -->
+
+			
+		    {% for message in messages %}
+		    <div class="{{ message.tags }}" style="color:#BE3F00">
+		        {% if 'safe' in message.tags %}
+		            {{ message|safe }}
+		        {% else %}
+		            {{ message }}
+		        {% endif %}
+		    </div>
+		    {% endfor %}
+			
 			
 			<div class="login-actions">
 									

@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^usuario/', include(accounts_urls, namespace="Accounts")),
     url(r'^turmas/', include(classes_urls, namespace="Classes")),
     url(r'^pontos/', include(rewards_urls, namespace="Rewards")),
+    url(r'^estatisticas$', 'jornada.views.statistics', name = 'statistics'),
     # ADICIONAR A MINHA URL AQUI
 ]
