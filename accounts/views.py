@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from jornada.util import is_teacher
 from django.contrib import messages
 from classes.models import Class
+from rewards.models import Badge
 
 def signup_teacher(request):
 
@@ -101,7 +102,8 @@ def view_student(request, id):
 def view_teacher(request, id):
 	context = {
 		'teacher': Teacher.objects.get(pk=id),
-		'classes': Class.objects.filter(teachers__in=[id])
+		'classes': Class.objects.filter(teachers__in=[id]),
+		'badges': Badge.objects.filter(created_by=request.user)
 	}
 
 	return render(request, 'teachers/view_teacher.html', context)

@@ -138,16 +138,16 @@
           <div class="widget widget-table action-table">
             <div class="widget-content">
               <h3 class="classtitle" align="center">Badges</h3>
-              <!-- <ul id="badgecontent">
-                {% for badge in  student.badges.all %}
+              <ul id="badgecontent">
+                {% for badge in  badges %}
                  <li>
                   <strong>{{ badge.name }}</strong>
                   {{ badge.description }}
                  </li>
                 {% empty %}
-                  <h5 class="studentcontent">Esse alunos não possui badges</h5>
+                  <h5 class="studentcontent">Esse professor não criou badges</h5>
                 {% endfor %}
-              </ul> -->
+              </ul>
             </div>
           </div>
         </div>
