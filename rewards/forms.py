@@ -6,10 +6,10 @@ class RewardForm (ModelForm):
 
 	class Meta:
 		model = Reward
-		fields = ['name', 'description', 'value', 'associated_class']
+		fields = ['name', 'description', 'value']
 
 class BadgeForm (ModelForm):
 
 	class Meta:
 		model = Badge
-		fields = ['name', 'description', 'associated_class']
+		fields = ['name', 'description']

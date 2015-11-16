@@ -4,7 +4,7 @@ from classes.models import Class
 from django.contrib.auth.decorators import login_required
 from jornada.util import is_teacher
 from django.core.urlresolvers import reverse
-from rewards.models import Badge, Reward
+from rewards.models import Badge, Reward, BadgeStudentClass, RewardStudentClass
 from django.contrib import messages
 
 import base64
@@ -53,7 +53,7 @@ def create_class(request):
 		classe = class_form.save()
 		classe.teachers.add(Teacher.objects.get(user=request.user))
 		classe.save()
-		return redirect('index')
+		return redirect('Classes:index')
 
 	return render(request, 'classes/form.html', {
 		'form': class_form,
@@ -151,8 +151,11 @@ def give_badges(request, id):
 		badge = Badge.objects.get(pk=request.POST.get('badge'))
 		students = Student.objects.filter(pk__in=request.POST.getlist('students[]'))
 		for student in students:
-			student.badges.add(badge)
-			student.save()
+			bsc = BadgeStudentClass()
+			bsc.student = student
+			bsc.badge = badge
+			bsc.classe = obj
+			bsc.save()
 		messages.success(request, 'Badges atribuídas com sucesso.')
 
 	return render(request, 'classes/give_badges.html', {
@@ -184,8 +187,11 @@ def give_rewards(request, id):
 		reward = Reward.objects.get(pk=request.POST.get('reward'))
 		students = Student.objects.filter(pk__in=request.POST.getlist('students[]'))
 		for student in students:
-			student.rewards.add(reward)
-			student.save()
+			bsc = RewardStudentClass()
+			bsc.student = student
+			bsc.reward = reward
+			bsc.classe = obj
+			bsc.save()
 		messages.success(request, 'Pontuações atribuídas com sucesso.')
 
 	return render(request, 'classes/give_rewards.html', {

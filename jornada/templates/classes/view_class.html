@@ -97,13 +97,26 @@
 <div class="main">
   <div class="main-inner">
     <div class="container">
+
+    {% if messages %}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-success" style="padding: 20px">
+            <ul>
+              {% for message in messages %}
+              <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+          {% endif %}
+
       <div class="row test" align="right">
       {% if is_teacher %}
         <a class="btn btn-primary" id="button" href="{% url 'Classes:edit' id=class.pk %}">Editar</a> <!--  href="" -->
-        <a class="btn btn-primary" id="button" href="#reward-modal" data-toggle="modal">Atribuir Pontuação</a>
-        <a class="btn btn-primary" id="button" href="#badge-modal" data-toggle="modal">Atribuir Badge</a>
-
-        <a class="btn btn-primary" id="button" href="#prof-modal" data-toggle="modal">Atribuir Professor</a>
+        <a class="btn btn-primary" id="button" href="{% url 'Classes:give_rewards' id=class.pk %}">Atribuir Pontuação</a>
+        <a class="btn btn-primary" id="button" href="{% url 'Classes:give_badges' id=class.pk %}">Atribuir Badge</a>
         {% endif %}
       </div>
 
@@ -118,7 +131,7 @@
             <li><strong>Link de registro: </strong> <a href="{% url 'Classes:register' key=key %}">Link</a></li>
           </ul>
             
-          <h3 class="title">Professores</h3>
+          <h3 class="title">Professores {% if is_teacher %}<a  href="#prof-modal" data-toggle="modal" class="btn btn-primary btn-xs" style="float: right; margin-top: 2px">Adicionar</a> {% endif %}</h3>
 
           <ul id="teachers">
               {% for teacher in  class.teachers.all %}

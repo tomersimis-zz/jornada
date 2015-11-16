@@ -1,7 +1,6 @@
 from django.contrib import admin
-from rewards.models import Reward
+from rewards.models import Reward, Badge, BadgeStudentClass, RewardStudentClass
 from rewards.models import Badge
-admin.site.register(Reward)
-admin.site.register(Badge)
+admin.site.register([Reward,Badge, BadgeStudentClass, RewardStudentClass])
 
 # Register your models here.

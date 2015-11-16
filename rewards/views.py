@@ -10,12 +10,12 @@ from accounts.models import Teacher, Student
 def index(request):
 
 	if not is_teacher(request.user):
-		#return redirect('index')
-		return render(request, 'students/student_rewards.html', {
-			'student': Student.objects.get(user=request.user),
-			'rewards': Student.objects.get(user=request.user).rewards.all(),
-			'badges': Student.objects.get(user=request.user).badges.all()
-		})
+		return redirect('index')
+		# return render(request, 'students/student_rewards.html', {
+		# 	'student': Student.objects.get(user=request.user),
+		# 	'rewards': Student.objects.get(user=request.user).rewards.all(),
+		# 	'badges': Student.objects.get(user=request.user).badges.all()
+		# })
 
 	return render(request, 'rewards/index.html', {
 		'reward_form' : RewardForm(),
@@ -38,7 +38,7 @@ def create_reward(request):
 		reward = reward_form.save(commit=False)
 		reward.created_by = request.user
 		reward.save()
-		return redirect('index')
+		# return redirect('index')
 
 	return render(request, 'rewards/index.html', {
 		'reward_form': reward_form,
