@@ -83,6 +83,45 @@
       margin: 0px;
       margin-top: 20px;
     }
+    #ranking{
+      padding: 20px;
+      list-style-type: none;
+    }
+    #ranking li{
+      margin: 0px 0px;
+    }
+    #ranking li a{
+      display: block;
+      background: #f2f2f2;
+      padding: 20px 20px 30px 20px;  
+    }
+
+    #ranking li a h2{
+      float: left;
+      margin: 0px 10px;
+    }
+
+    #ranking li a strong{
+      position: relative;
+      top:5px;
+    }
+    #badgecontent{
+      margin: 0px;
+      padding: 0px;
+    }
+
+    #badgecontent li{
+      display: block;
+      border-bottom: solid 1px #ccc;
+      padding: 10px 20px;
+      color: #a5a5a5;
+    }
+
+    #badgecontent li strong{
+      font-size: 14px;
+      color: #0e0e0e;
+    }
+
   </style>
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -113,6 +152,7 @@
           {% endif %}
 
       <div class="row test" align="right">
+      <a class="btn btn-primary" id="button" href="{% url 'Classes:stats' id=class.pk %}">Estatísticas da turma</a>
       {% if is_teacher %}
         <a class="btn btn-primary" id="button" href="{% url 'Classes:edit' id=class.pk %}">Editar</a> <!--  href="" -->
         <a class="btn btn-primary" id="button" href="{% url 'Classes:give_rewards' id=class.pk %}">Atribuir Pontuação</a>
@@ -128,7 +168,9 @@
           <ul id="class-data-list">
             <li><strong>Disciplina:</strong> {{ class.discipline }}</li>
             <li><strong>Série:</strong> {{ class.grade }}</li>
+            <li><strong>Número de alunos: </strong>  {{ class.students.count }}</li>
             <li><strong>Link de registro: </strong> <a href="{% url 'Classes:register' key=key %}">Link</a></li>
+
           </ul>
             
           <h3 class="title">Professores {% if is_teacher %}<a  href="#prof-modal" data-toggle="modal" class="btn btn-primary btn-xs" style="float: right; margin-top: 2px">Adicionar</a> {% endif %}</h3>
@@ -143,14 +185,39 @@
         <div class="col-md-8 shot">
           <div class="widget widget-table action-table">
             <div class="widget-content">
-              <h3 class="classtitle" align="center">Alunos</h3>
-              {% for student in  class.students.all %}
-              <h5 class="studentcontent"><a href="{% url 'Accounts:view' id=student.pk %}">{{ student }}</a></h5>
-              {% empty %}
-              <h5 class="studentcontent">Essa turma não possui alunos</h5>
-              {% endfor %}
+              <h3 class="classtitle" align="center">Melhores alunos</h3>
+              <ul id="ranking">
+                {% for student in students %}
+                <li>
+                  <a href="{% url 'Accounts:view' id=student.pk %}">
+                    <h2 class="ranking-pos">{{ forloop.counter }}</h2>
+                    <strong>{{ student }} ({{student.score}} pontos)</strong></a>
+                    <br style="clear: both" />
+                </li>
+                {% empty %}
+                <h5 class="studentcontent">Essa turma não possui alunos</h5>
+                {% endfor %}
+              </ul>
             </div>
           </div>
+
+          <div class="widget widget-table action-table">
+            <div class="widget-content">
+              <h3 class="classtitle" align="center">Melhores alunos por pontuação</h3>
+              <ul id="badgecontent">
+                {% for reward in ranking_rewards %}
+                 <li>
+                  <strong>{{ reward.reward.name }} - {{ reward.student }}</strong>
+                   Pontuação dada {{ reward.count }} vez(es)
+                 </li>
+                {% empty %}
+                  <h5 class="studentcontent">Nenhuma pontuação foi dada para os alunos dessa turma.</h5>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+
+          
         </div>
       </div>
 

@@ -7,6 +7,8 @@ from django.core.urlresolvers import reverse
 from rewards.models import Badge, Reward, BadgeStudentClass, RewardStudentClass
 from django.contrib import messages
 
+from datetime import datetime, date
+
 import base64
 
 from accounts.models import Teacher,Student
@@ -86,17 +88,46 @@ def edit_class(request, id):
 @login_required(login_url='/usuario/login/')
 def view(request, id):
 
+	obj = Class.objects.get(pk=id)
+
 	aux = set(Teacher.objects.all())
-	aux2 = set(Class.objects.get(pk=id).teachers.all())
+	aux2 = set(obj.teachers.all())
 
 	aux -= aux2
-			
+	
+	students = obj.students.all()
+
+	for student in students:
+		rewards = RewardStudentClass.objects.filter(student=student, classe=obj)
+		student.score = 0
+		for reward in rewards:
+			student.score += reward.reward.value
+
+	students = list(students)
+
+	students.sort(key=lambda x: x.score, reverse=True)
+
+	rewards = RewardStudentClass.objects.filter(classe=obj)
+	ranking_rewards = {}
+	for s in students:
+		for r in rewards:
+			count = RewardStudentClass.objects.filter(classe=obj, student=s).count()
+			if not r.reward.pk in ranking_rewards or ranking_rewards[r.reward.pk]['count'] < count:
+				ranking_rewards[r.reward.pk] = {
+					'count': count,
+					'reward': r.reward,
+					'student': s
+				} 
+
+	ranking_rewards = [ranking_rewards[r] for r in ranking_rewards]
 
 	context={
-		'class': Class.objects.get(pk=id),
+		'class': obj,
 		'key': base64.b64encode(bytes(id, 'utf-8')),
 		'is_teacher': is_teacher(request.user),
-		'teachers': aux
+		'teachers': aux,
+		'students': students,
+		'ranking_rewards': ranking_rewards
 
 	}
 	return render(request, 'classes/view_class.html', context)
@@ -198,3 +229,45 @@ def give_rewards(request, id):
 		'class': obj,
 		'rewards': rewards
 	})
+
+@login_required(login_url='/usuario/login/')
+def stats(request, id):
+
+	obj = Class.objects.get(pk=id)
+
+	students = obj.students.all()
+
+	selected = False
+
+	if request.GET.get('start') and request.GET.get('end'):
+		selected = True
+
+		initial_date = datetime.strptime('01/01/2000', '%d/%m/%Y')
+		start_date = datetime.strptime(request.GET.get('start') + ' 00:00', '%d/%m/%Y %H:%M')
+		end_date = datetime.strptime(request.GET.get('end') + ' 23:59', '%d/%m/%Y %H:%M')
+
+		for student in students:
+			initial_rewards = RewardStudentClass.objects.filter(student=student, classe=obj, created__range=(initial_date, start_date))
+			student.initial_score = 0
+			for r in initial_rewards:
+				student.initial_score += r.reward.value
+
+			rewards = RewardStudentClass.objects.filter(student=student, classe=obj, created__range=(start_date, end_date))
+			student.score = 0
+			for r in rewards:
+				student.score += r.reward.value
+			
+			if student.score < student.initial_score:
+				student.score_raise = -((student.initial_score or 1)/(student.score or 1))*100
+			else:
+				student.score_raise = (student.score/(student.initial_score or 1))*100
+
+			student.badges = BadgeStudentClass.objects.filter(student=student, classe=obj, created__range=(start_date, end_date))
+
+	context={
+		'class': obj,
+		'is_teacher': is_teacher(request.user),
+		'students': students,
+		'selected': selected
+	}
+	return render(request, 'classes/stats.html', context)

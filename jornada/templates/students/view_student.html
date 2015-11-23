@@ -139,10 +139,10 @@
             <div class="widget-content">
               <h3 class="classtitle" align="center">Badges</h3>
               <ul id="badgecontent">
-                {% for badge in  student.badges.all %}
+                {% for badge in badges %}
                  <li>
-                  <strong>{{ badge.name }}</strong>
-                  {{ badge.description }}
+                  <strong>{{ badge.badge.name }}</strong>
+                  {{ badge.badge.description }}
                  </li>
                 {% empty %}
                   <h5 class="studentcontent">Esse alunos não possui badges</h5>
